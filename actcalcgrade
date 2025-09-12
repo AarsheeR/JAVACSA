@@ -14,25 +14,25 @@ public class ActCalculatingGrades {
 		System.out.print("Enter the average amount of time the student spent on the course per week in minutes: ");
 		int avgtime = input.nextInt();
 		
-		System.out.print("Enter first homework score: ");
+		System.out.print("Enter first homework score (as a whole number between 0-100): ");
 		int hw1 = input.nextInt();
 		
-		System.out.print("Enter second homework score: ");
+		System.out.print("Enter second homework score (as a whole number between 0-100): ");
 		int hw2 = input.nextInt();
 
-		System.out.print("Enter third homework score: ");
+		System.out.print("Enter third homework score (as a whole number between 0-100): ");
 		int hw3 = input.nextInt();
 		
-		System.out.print("Enter fourth homework score: ");
+		System.out.print("Enter fourth homework score (as a whole number between 0-100): ");
 		int hw4 = input.nextInt();
 		
-		System.out.print("Enter first quiz score: ");
+		System.out.print("Enter first quiz score (as a number between 0-100): ");
 		double qz1 = input.nextDouble();
 		
-		System.out.print("Enter second quiz score: ");
+		System.out.print("Enter second quiz score (as a number between 0-100): ");
 		double qz2 = input.nextDouble();
 		
-		System.out.print("Enter final exam score: ");
+		System.out.print("Enter final exam score (as a number between 0-100): ");
 		double finalsc = input.nextDouble();
 		
 
@@ -40,14 +40,15 @@ public class ActCalculatingGrades {
 		double averageqz = (qz1 + qz2)/2;
 		double overall = (0.35*averagehw) + (0.15*averageqz) + (0.5*finalsc);
 		
+		
+		System.out.println("=====================================");
 		System.out.println("Course Name: " + coursename);
 		System.out.println("Average time spent per week (in hours): " + (avgtime/60) + " hours and " + (avgtime%60) + " minute(s)");
 		System.out.println("Average Homework Grade: " + averagehw);
 		System.out.println("Average Quiz Grade: " + averageqz);
 		System.out.println("Final Exam Grade: " + finalsc);
 		
-		double overallint = overall - (overall % 1);
-		System.out.println("Overall grade:  " + (overallint));
+		System.out.println("Overall grade: " + (int)overall);
 	
 
 	}
