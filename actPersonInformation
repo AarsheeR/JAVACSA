@@ -1,0 +1,79 @@
+GENERAL_INFORMATION //comment later on about the name lenght!!!
+
+package javaPack;
+
+import java.util.Scanner;
+
+public class General_Information {
+
+	public static void main(String[] args) {
+		CollectInfo();
+	}
+	private static void CollectInfo()
+	{
+		Scanner input = new Scanner(System.in);
+		
+		System.out.print("Enter birth year: ");
+		int birthyear = input.nextInt();
+		
+		Person personinfo = new Person("Aarshee ", "Rahman", birthyear);
+		
+		System.out.println("Full name in uppercase letters: " + personinfo.FullnameUpper());
+		
+		System.out.println("Full name in uppercase letters: " + personinfo.FullnameLower());
+		
+		System.out.println("Full name length: " + personinfo.FullnameLength());
+
+		
+		System.out.println("You are " + personinfo.PersonAge() + " years old.");
+	}
+	
+
+}
+
+//////////////////////////////////
+PERSON 
+
+package javaPack;
+
+public class Person 
+{
+	private String firstname;
+	private String lastname;
+	private String namefull;
+	private int yearb;
+	
+	public Person(String fname, String lname, int byear)
+	{
+		this.firstname = fname;
+		this.lastname = lname;
+		this.namefull = firstname + " " + lastname;
+		this.yearb = byear;
+	}
+	
+	public String FullnameUpper()
+	{
+		String upperName = namefull.toUpperCase();
+		return upperName;
+	}
+	
+	public String FullnameLower()
+	{
+		String lowerName = namefull.toLowerCase();
+		return lowerName;
+	}
+	
+	public int FullnameLength()
+	{
+		int lengthName = namefull.length(); //including the space?
+		return lengthName;
+	}
+	
+	public int PersonAge()
+	{
+		int userage;
+		userage = 2025 - yearb;
+		return userage;
+	
+	}
+}
