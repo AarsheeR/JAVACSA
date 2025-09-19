@@ -1,0 +1,114 @@
+General info
+
+package javaPack;
+
+public class General_Information {
+
+	public static void main(String[] args) 
+	{
+		CollectInfo Student = new CollectInfo();
+	}
+	
+}
+
+
+
+Person
+
+package javaPack;
+
+public class Person 
+{
+	//The private access modifier restricts
+	//direct access to this field from 
+	//outside the Person class
+	private String firstname;
+	private String lastname;
+	private int userbirthyr;
+	
+	public Person(String fname, String lname, int userdob)
+	{
+		//firstname and lastname are instance variables
+		//instance variables are fields (variables) declared 
+		//within a class but outside of any method, constructor, or block.
+		this.firstname = fname;
+		this.lastname = lname;
+		this.userbirthyr = userdob;
+	}
+	
+	public String Fullname()
+	{
+		String completename = firstname + " " + lastname;
+		return completename;
+	}
+	
+	public String FullnameUpper()
+	{
+		String upperName = Fullname().toUpperCase();
+		return upperName;
+	}
+	
+	public String FullnameLower()
+	{
+		String lowerName = Fullname().toLowerCase();
+		return lowerName;
+	}
+	
+	public int FullnameLength()
+	{
+		int lengthName = Fullname().length(); 
+		return lengthName;
+	}
+	
+	public int PersonAge()
+	{
+		int userage;
+		userage = 2025 - userbirthyr;
+		return userage;
+	}
+}
+
+
+CollectInfo
+
+package javaPack;
+
+import java.util.Scanner;
+
+public class CollectInfo {
+
+	String fname,lname;
+	int birthyear=0;
+	Scanner input = new Scanner(System.in);
+	
+	public CollectInfo()
+	{
+		AllInfo();
+	}
+	
+	public void AllInfo()
+	{
+		System.out.print("Enter your first name: ");
+		fname = input.nextLine();
+		
+		System.out.print("Enter your middle initial: ");
+		String midinit = input.nextLine();
+		
+		fname = fname + " " + midinit;
+		
+		System.out.print("Enter your last name: ");
+		lname = input.nextLine();
+		
+		System.out.print("Enter your year of birth: ");
+		birthyear = input.nextInt();
+		
+		Person collectpers = new Person(fname,lname,birthyear);
+		String fullname = collectpers.Fullname();
+		int persdob = collectpers.PersonAge();
+		
+		System.out.println("Hello " + fullname + ". " + "I see you are " + persdob + " years old.");
+	}
+	
+	
+}
+
