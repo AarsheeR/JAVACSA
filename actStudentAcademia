@@ -1,0 +1,103 @@
+gen_info
+
+package javaPack;
+
+//import java.util.Scanner;
+
+public class General_Information {
+
+	public static void main(String[] args) {
+		CollectInfo();
+	}
+	private static void CollectInfo()
+	{
+		//Scanner input = new Scanner(System.in);
+		
+		Student s1 = new Student("Bob",9,95);
+		
+		System.out.println(s1.getName() + " | Grade: " + s1.getGrade() + " | GPA: " + s1.getGpa4() + " (" + s1.getGpa100() + ")");
+		s1.promote(); //is this right?
+		s1.updateGpa(); 
+	}
+	
+
+}
+
+Student class
+package javaPack;
+
+import java.util.Scanner;
+
+public class Student 
+{
+	private String sname; // does the user input their name?
+	private int sgrade;
+	private int sgpa100;
+	private double sgpa4;
+	
+	public Student(String name, int grade, int gpa100)
+	{
+		this.sname = name;
+		this.sgrade = grade;
+		this.sgpa100 = gpa100;
+		this.sgpa4 = (gpa100 / 100.0) * 4.0;
+	}
+	
+	public String getName()
+	{
+		return sname;
+	}
+	
+	public int getGrade()
+	{
+		return sgrade;
+	}
+	
+	public int getGpa100()
+	{
+		return sgpa100;
+	}
+	
+	public double getGpa4()
+	{
+		return sgpa4;
+	}
+	
+	public void promote() //is this like promoting to another grade level if gpa100 >65?
+	{
+		if (sgpa4 >= 2.0) {
+			sgrade++;
+			System.out.println(sname + " has been promoted to grade " + sgrade + ".");
+		}
+		else {
+			System.out.println(sname + " cannot be be promoted. GPA too low.");
+		}
+	}
+	
+	public void updateGpa()
+	{
+		Scanner input = new Scanner(System.in);
+		
+		System.out.print("What was the previous GPA of " + sname + "? (any whole number from 0-100)");
+		int pgpa100 = input.nextInt();
+		
+		double ugpa100 = (pgpa100 + sgpa100)/2;
+		double ugpa4 = (ugpa100 / 100.0) * 4.0;
+		
+		System.out.println(sname + "'s updated GPA: " + ugpa4 + "(" + ugpa100 + ")");
+		isHonorRoll();
+		
+	}
+	
+	//for checking honor roll we can use if else? if not what about public boolean?
+	
+	public void isHonorRoll()
+	{
+		if (sgpa4 >= 3.5) {
+	        System.out.println(sname + " is on the honor roll!");
+	    } else {
+	        System.out.println(sname + " is not on the honor roll.");
+	    }
+	}
+}
+
