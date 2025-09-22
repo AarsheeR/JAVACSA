@@ -4,45 +4,89 @@ package javaPack;
 
 //import java.util.Scanner;
 
+package javaPack;
+
 public class General_Information {
 
-	public static void main(String[] args) {
-		CollectInfo();
-	}
-	private static void CollectInfo()
+	public static void main(String[] args) 
 	{
-		//Scanner input = new Scanner(System.in);
-		
-		Student s1 = new Student("Bob",9,95);
-		
-		System.out.println(s1.getName() + " | Grade: " + s1.getGrade() + " | GPA: " + s1.getGpa4() + " (" + s1.getGpa100() + ")");
-		s1.promote(); //is this right?
-		s1.updateGpa(); 
+		CollectInfo Student1 = new CollectInfo();
+		System.out.println("=====================================");
+		CollectInfo Student2 = new CollectInfo();
+		System.out.println("=====================================");
+		CollectInfo Student3 = new CollectInfo();
 	}
 	
-
 }
 
-Student class
+
+COPLLECT INFOP
+
 package javaPack;
 
 import java.util.Scanner;
+
+public class CollectInfo {
+
+	String fname,lname;
+	Scanner input = new Scanner(System.in);
+	
+	public CollectInfo()
+	{
+		AllInfo();
+	}
+	
+	public void AllInfo()
+	{
+		System.out.print("Enter your first name: ");
+		fname = input.nextLine();
+		
+		System.out.print("Enter your last name: ");
+		lname = input.nextLine();
+	
+		System.out.print("Enter your grade level (9,10,11, or 12): ");
+		int grade = input.nextInt();
+		
+		System.out.print("What was your previous GPA (any whole number from 0-100)?");
+		int pgpa100 = input.nextInt();
+		
+		System.out.print("What is your new GPA (any whole number from 0-100)?");
+		int gpa100 = input.nextInt();
+		
+		Student s1 = new Student(fname,lname,grade,pgpa100,gpa100);
+		
+		System.out.println(s1.getName() + " | Grade: " + s1.getGrade() + " | Current GPA: " + s1.getGpa4() + " (" + s1.getGpa100() + ")");
+		s1.promote(); 
+		s1.updateGpa(); 
+
+		
+	}
+	
+	
+}
+
+
+
+Student class
+package javaPack;
 
 public class Student 
 {
 	private String sname; // does the user input their name?
 	private int sgrade;
 	private int sgpa100;
+	private int spgpa100;
 	private double sgpa4;
 	
-	public Student(String name, int grade, int gpa100)
-	{
-		this.sname = name;
+
+	public Student(String fname, String lname, int grade, int pgpa100, int gpa100) {
+		this.sname = fname + " " + lname;
 		this.sgrade = grade;
 		this.sgpa100 = gpa100;
+		this.spgpa100 = pgpa100;
 		this.sgpa4 = (gpa100 / 100.0) * 4.0;
 	}
-	
+
 	public String getName()
 	{
 		return sname;
@@ -63,11 +107,18 @@ public class Student
 		return sgpa4;
 	}
 	
-	public void promote() //is this like promoting to another grade level if gpa100 >65?
+	public void promote() 
 	{
-		if (sgpa4 >= 2.0) {
-			sgrade++;
-			System.out.println(sname + " has been promoted to grade " + sgrade + ".");
+		if (sgpa4 > 2.0) {
+			if (sgrade == 12)
+			{
+				System.out.println(sname + " can graduate successfully!");
+			}
+			else
+			{
+				sgrade++;
+				System.out.println(sname + " has been promoted to grade " + sgrade + ".");
+			}
 		}
 		else {
 			System.out.println(sname + " cannot be be promoted. GPA too low.");
@@ -75,21 +126,15 @@ public class Student
 	}
 	
 	public void updateGpa()
-	{
-		Scanner input = new Scanner(System.in);
-		
-		System.out.print("What was the previous GPA of " + sname + "? (any whole number from 0-100)");
-		int pgpa100 = input.nextInt();
-		
-		double ugpa100 = (pgpa100 + sgpa100)/2;
+	{		
+		double ugpa100 = (spgpa100 + sgpa100)/2;
 		double ugpa4 = (ugpa100 / 100.0) * 4.0;
 		
-		System.out.println(sname + "'s updated GPA: " + ugpa4 + "(" + ugpa100 + ")");
+		System.out.println(sname + "'s updated GPA (the average of the previous and new GPA): " + ugpa4 + "(" + ugpa100 + ")");
 		isHonorRoll();
 		
 	}
 	
-	//for checking honor roll we can use if else? if not what about public boolean?
 	
 	public void isHonorRoll()
 	{
