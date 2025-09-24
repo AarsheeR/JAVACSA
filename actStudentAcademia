@@ -2,14 +2,10 @@ gen_info
 
 package javaPack;
 
-//import java.util.Scanner;
-
-package javaPack;
 
 public class General_Information {
 
-	public static void main(String[] args) 
-	{
+	public static void main(String[] args) {
 		CollectInfo Student1 = new CollectInfo();
 		System.out.println("=====================================");
 		CollectInfo Student2 = new CollectInfo();
@@ -17,17 +13,19 @@ public class General_Information {
 		CollectInfo Student3 = new CollectInfo();
 	}
 	
+
 }
 
 
-COPLLECT INFOP
+
+COPLLECT INFO
 
 package javaPack;
 
 import java.util.Scanner;
 
-public class CollectInfo {
-
+public class CollectInfo 
+{
 	String fname,lname;
 	Scanner input = new Scanner(System.in);
 	
@@ -50,19 +48,16 @@ public class CollectInfo {
 		System.out.print("What was your previous GPA (any whole number from 0-100)?");
 		int pgpa100 = input.nextInt();
 		
-		System.out.print("What is your new GPA (any whole number from 0-100)?");
+		System.out.print("What is your current GPA (any whole number from 0-100)?");
 		int gpa100 = input.nextInt();
 		
-		Student s1 = new Student(fname,lname,grade,pgpa100,gpa100);
+		Student s = new Student(fname,lname,grade,pgpa100,gpa100);
 		
-		System.out.println(s1.getName() + " | Grade: " + s1.getGrade() + " | Current GPA: " + s1.getGpa4() + " (" + s1.getGpa100() + ")");
-		s1.promote(); 
-		s1.updateGpa(); 
+		System.out.println(s.getName() + " | Grade: " + s.getGrade() + " | Current GPA: " + s.getGpa4() + " (" + s.getGpa100() + ")");
+		s.promote(); 
+		s.updateGpa(); 
 
-		
 	}
-	
-	
 }
 
 
@@ -72,12 +67,12 @@ package javaPack;
 
 public class Student 
 {
-	private String sname; // does the user input their name?
+	private String sname; 
 	private int sgrade;
 	private int sgpa100;
 	private int spgpa100;
 	private double sgpa4;
-	
+	private double ugpa4;
 
 	public Student(String fname, String lname, int grade, int pgpa100, int gpa100) {
 		this.sname = fname + " " + lname;
@@ -128,9 +123,9 @@ public class Student
 	public void updateGpa()
 	{		
 		double ugpa100 = (spgpa100 + sgpa100)/2;
-		double ugpa4 = (ugpa100 / 100.0) * 4.0;
+		this.ugpa4 = (ugpa100 / 100.0) * 4.0;
 		
-		System.out.println(sname + "'s updated GPA (the average of the previous and new GPA): " + ugpa4 + "(" + ugpa100 + ")");
+		System.out.println(sname + "'s updated GPA (the average of the previous and current GPA): " + ugpa4 + "(" + ugpa100 + ")");
 		isHonorRoll();
 		
 	}
@@ -138,11 +133,10 @@ public class Student
 	
 	public void isHonorRoll()
 	{
-		if (sgpa4 >= 3.5) {
+		if (ugpa4 >= 3.5) {
 	        System.out.println(sname + " is on the honor roll!");
 	    } else {
 	        System.out.println(sname + " is not on the honor roll.");
 	    }
 	}
 }
-
