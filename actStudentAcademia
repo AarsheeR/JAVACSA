@@ -53,7 +53,7 @@ public class CollectInfo
 		
 		Student s = new Student(fname,lname,grade,pgpa100,gpa100);
 		
-		System.out.println(s.getName() + " | Grade: " + s.getGrade() + " | Current GPA: " + s.getGpa4() + " (" + s.getGpa100() + ")");
+		System.out.println(s.getName() + " | Grade: " + s.getGrade() + " | Previous GPA: " + s.getPGpa4() + " (" + s.getPGpa100() + ")" + " | Current GPA: " + s.getGpa4() + " (" + s.getGpa100() + ")");
 		s.promote(); 
 		s.updateGpa(); 
 
@@ -72,6 +72,7 @@ public class Student
 	private int sgpa100;
 	private int spgpa100;
 	private double sgpa4;
+	private double spgpa4;
 	private double ugpa4;
 
 	public Student(String fname, String lname, int grade, int pgpa100, int gpa100) {
@@ -79,6 +80,7 @@ public class Student
 		this.sgrade = grade;
 		this.sgpa100 = gpa100;
 		this.spgpa100 = pgpa100;
+		this.spgpa4 = (pgpa100 / 100.0) * 4.0;
 		this.sgpa4 = (gpa100 / 100.0) * 4.0;
 	}
 
@@ -101,6 +103,15 @@ public class Student
 	{
 		return sgpa4;
 	}
+	public int getPGpa100()
+	{
+		return spgpa100;
+	}
+	
+	public double getPGpa4()
+	{
+		return spgpa4;
+	}
 	
 	public void promote() 
 	{
@@ -122,7 +133,7 @@ public class Student
 	
 	public void updateGpa()
 	{		
-		double ugpa100 = (spgpa100 + sgpa100)/2;
+		double ugpa100 = (spgpa100 + sgpa100)/2.0;
 		this.ugpa4 = (ugpa100 / 100.0) * 4.0;
 		
 		System.out.println(sname + "'s updated GPA (the average of the previous and current GPA): " + ugpa4 + "(" + ugpa100 + ")");
