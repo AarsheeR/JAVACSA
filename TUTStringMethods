@@ -1,0 +1,83 @@
+DATAOBJECTS MAIN CLASS
+package javaPack;
+
+public class DataObjectss {
+
+	public static void main(String[] args) 
+	{
+		DisplayJavaMenu dspmenu = new DisplayJavaMenu();
+		StringMethods stringmet = new StringMethods();
+	}
+
+}
+
+
+DISPLAYAJVAMENU CLASS
+package javaPack;
+
+public class DisplayJavaMenu 
+{
+	public DisplayJavaMenu()
+	{
+	//Title and decoration using escape sequences
+	String title = "Welcome to Java Café ☕︎\n";
+	String line = "----------------------\n\n";
+	
+	//Menu section using \t for tab spacing 
+	String menu = "Menu:\n";
+	menu += "\t1. Expresso\t$2.50\n";
+	menu += "\t2. Latte\t$3.50\n";
+	menu += "\t3. Cappuccino\t$4.00\n";
+	
+	//Quote using escape characters for double quotes 
+	String quote = "\"Drink coffe and Code Java!\"\n\n";
+	
+	//File path with double backslashes
+	String path = "Visit us at C:\\\\JavaCafe\\\\MainStreet";
+	
+	//Full message
+	String fullMessage = title + line + menu + quote + path;
+	
+	//Print the message
+	System.out.println(fullMessage);
+	}
+}
+
+
+STRINGMETHODS CLASS
+
+package javaPack;
+
+public class StringMethods {
+
+	public StringMethods()
+	{
+		String message = "The Secret Code is: JavaRocks123!";
+		
+		// 1. Print OG Message
+		System.out.println("Original Message: " + message);
+		// 2. Length of Message
+		System.out.println("Length: " + message.length());
+		// 3. Uppercase and lowercase
+		System.out.println("Uppercase:  " + message.toUpperCase());
+		System.out.println("Lowercase:  " + message.toLowerCase());
+		// 4. Exact "JavaRocks123!" using substring
+		String code = message.substring(22,33); // Indices might need adjusting
+		System.out.println("Extracted code:" + code);
+		// 5. Index of "Code"
+		System.out.println("Index of Code: " + message.indexOf("Code"));
+		// 6. Character at position 10
+		System.out.println("Character at index 10: " + message.charAt(10));
+		// 7. Check if it contains "Secret" 
+		System.out.println("Contains Secret?" + message.contains("Secret"));
+		// 8. Replace JavaRocks123! with asterisks
+		String maskedMessage = message.replace("JavaRocks123!", "***********");
+		System.out.println("Masked Messsage: " + maskedMessage);
+		// 9. Compare ignoring case
+		String comparison = "the secret code is : javarocks123!";
+		System.out.println("Equal (ignore case)? " + message.equalsIgnoreCase(comparison));
+		// 10. Bonus: Trim a new String
+		String messyString = "    Hidden Message     ";
+		System.out.println("Trimmed: '" + messyString.trim() + "'");
+	}
+}
