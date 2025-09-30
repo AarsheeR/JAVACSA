@@ -1,0 +1,83 @@
+airplane 
+package javaPack;
+
+public class Airplane 
+{
+	private String callsign; 
+	private double distance;
+	private int bearing;
+	private int altitude;
+	
+	public Airplane(String cs, double dist, int dir, int alt)
+	{
+		this.callsign = cs;
+		this.distance = dist;
+		this.bearing = dir;
+		this.altitude = alt;
+	}
+	
+	public int getAlt()
+	{
+		return altitude;
+	}
+
+}
+
+
+main
+
+package javaPack;
+
+public class Main {
+
+	public static void main(String[] args) 
+	{
+		CollectInfo Airplanes = new CollectInfo();
+	}
+
+}
+
+
+collecinfp 
+
+package javaPack;
+
+import java.util.Scanner;
+
+public class CollectInfo 
+{
+		String cs;
+		Scanner input = new Scanner(System.in);
+		
+		public CollectInfo()
+		{
+			AllInfo();
+		}
+		
+		public void AllInfo()
+		{
+			System.out.println("Enter the information for the third airplane: ");
+			System.out.print("Enter the call-sign: ");
+			cs = input.nextLine();
+			
+			System.out.print("Enter the distance (a postive number): ");
+			double dist = input.nextDouble();
+		
+			System.out.print("Enter the bearing (a positve integer): ");
+			int dir = input.nextInt();
+			
+			System.out.print("What is the altitude (an integer measured in feet): ");
+			int alt = input.nextInt();
+			
+			
+			Airplane Airplane3 = new Airplane(cs,dist,dir,alt);
+			
+			Airplane dyfghg = new Airplane();
+			System.out.println();
+			
+
+		
+	}
+
+}
+
