@@ -81,3 +81,100 @@ public class CollectInfo
 
 }
 
+
+
+package javaPack;
+
+import java.util.Scanner;
+
+public class CollectInfo 
+{
+		String cs;
+		
+		String cs1 = "AAA01";
+		double dist1 = 1;
+		int dir1 = 0;
+		int alt1 = 0;
+		
+		String cs2 = "AAA02";
+		double dist2 = 15.8;
+		int dir2 = 127;
+		int alt2 = 0;
+		Scanner input = new Scanner(System.in);
+		
+		public CollectInfo()
+		{
+			AllInfo();
+		}
+		
+		public void AllInfo()
+		{
+			System.out.println("Enter the information for the third airplane: ");
+			System.out.print("Enter the call-sign: ");
+			cs = input.nextLine();
+			
+			System.out.print("Enter the distance (a postive number): ");
+			double dist = input.nextDouble();
+		
+			System.out.print("Enter the bearing (a positve integer): ");
+			int dir = input.nextInt();
+			
+			System.out.print("What is the altitude (an integer measured in feet): ");
+			int alt = input.nextInt();
+			
+			
+			Airplane a3 = new Airplane(cs,dist,dir,alt);
+			Airplane a1 = new Airplane(cs1,dist1,dir1,alt1);
+			Airplane a2 = new Airplane(cs2,dist2,dir2,alt2);
+			
+
+			System.out.println("Initial Positions:");
+			System.out.println("'Airplane 1': " + a1.getCs() + " - " + a1.getDist() + " miles away at bearing " + a1.getAlt());
+			System.out.println("'Airplane 2': " + a2.getCs() + " - " + a2.getDist() + " miles away at bearing " + a2.getAlt());
+			System.out.println("'Airplane 3': " + a3.getCs() + " - " + a3.getDist() + " miles away at bearing " + a3.getAlt());
+		
+	}
+
+}
+
+
+package javaPack;
+
+public class Airplane 
+{
+	private String callsign; 
+	private double distance;
+	private int bearing;
+	private int altitude;
+	
+	public Airplane(String cs, double dist, int dir, int alt)
+	{
+		this.callsign = cs;
+		this.distance = dist;
+		this.bearing = dir;
+		this.altitude = alt;
+	}
+	
+	public String getCs()
+	{
+		String callsignUpper = callsign.toUpperCase();
+		return callsignUpper;
+	}
+
+	public double getDist()
+	{
+		return distance;
+	}
+
+	public int getDir()
+	{
+		return bearing;
+	}
+	
+	public int getAlt()
+	{
+		return altitude;
+	}
+}
+
+
