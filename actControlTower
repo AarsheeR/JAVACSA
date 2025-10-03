@@ -1,69 +1,5 @@
 package javaPack;
 
-public class Main {
-
-	public static void main(String[] args) 
-	{
-		CollectInfo Airplanes = new CollectInfo();
-	}
-
-}
-
-
-
-package javaPack;
-
-import java.util.Scanner;
-
-public class CollectInfo 
-{
-		String cs;
-		
-		String cs2 = "AAA02";
-		double dist2 = 15.8;
-		int dir2 = 128;
-		int alt2 = 30000;
-		Scanner input = new Scanner(System.in);
-		
-		public CollectInfo()
-		{
-			AllInfo();
-		}
-		
-		public void AllInfo()
-		{
-			System.out.println("Enter the information for the third airplane: ");
-			System.out.print("Enter the call-sign: ");
-			cs = input.nextLine();
-			
-			System.out.print("Enter the distance (a postive number): ");
-			double dist = input.nextDouble();
-		
-			System.out.print("Enter the bearing: ");
-			int dir = input.nextInt();
-			
-			System.out.print("What is the altitude (a positive integer measured in feet): ");
-			int alt = input.nextInt();
-			
-
-			Airplane a1 = new Airplane();
-			Airplane a2 = new Airplane(cs2,dist2,dir2,alt2);
-			Airplane a3 = new Airplane(cs,dist,dir,alt);
-
-			System.out.println("Initial Positions:");
-			System.out.println("'Airplane 1': " + a1.toString());
-			System.out.println("'Airplane 2': " + a2.toString());
-			System.out.println("'Airplane 3': " + a3.toString());
-			
-			System.out.println(a1.distTo(a2));
-	}
-
-}
-
-
-
-package javaPack;
-
 public class Airplane 
 {
 	private String callsign;
@@ -100,7 +36,7 @@ public class Airplane
 
 	public String getDir()
 	{
-		if (bearing < 0 && bearing > 360)
+		if (bearing < 0 || bearing > 360)
 		{
 			bearing = bearing % 360;
 		}
@@ -147,5 +83,99 @@ public class Airplane
 	    return dist;
 	}
 	
+	public int altDiff(Airplane other) {
+		int alt1 = this.altitude;
+		int alt2 = other.altitude;
+		
+		int difference = alt1 - alt2;
+		if (difference < 0)
+		{
+			difference = difference - (2 * difference);
+		}
+		
+		return difference;
+		
+	}
+	
+	public void move(double dist, int dir)
+	{
+		
+	}
+	
 }
 
+
+
+package javaPack;
+
+import java.util.Scanner;
+
+public class CollectInfo 
+{
+		String cs;
+		
+		String cs2 = "AAA02";
+		double dist2 = 15.8;
+		int dir2 = 128;
+		int alt2 = 30000;
+		Scanner input = new Scanner(System.in);
+		
+		public CollectInfo()
+		{
+			AllInfo();
+		}
+		
+		public void AllInfo()
+		{
+			System.out.println("Enter the information for the third airplane: ");
+			System.out.print("Enter the call-sign: ");
+			cs = input.nextLine();
+			
+			System.out.print("Enter the distance (a postive number): ");
+			double dist = input.nextDouble();
+		
+			System.out.print("Enter the bearing: ");
+			int dir = input.nextInt();
+			
+			System.out.print("What is the altitude (a positive integer measured in feet): ");
+			int alt = input.nextInt();
+			
+
+			Airplane a1 = new Airplane();
+			Airplane a2 = new Airplane(cs2,dist2,dir2,alt2);
+			Airplane a3 = new Airplane(cs,dist,dir,alt);
+
+			System.out.println("\nInitial Positions:");
+			System.out.println("'Airplane 1': " + a1.toString());
+			System.out.println("'Airplane 2': " + a2.toString());
+			System.out.println("'Airplane 3': " + a3.toString() + "\n");
+			
+			System.out.println("Initial Distances:");
+			System.out.println("The distance between Airplane 1 and Airplane 2 is " + a1.distTo(a2) + " miles.");
+			System.out.println("The distance between Airplane 1 and Airplane 3 is " + a1.distTo(a3) + " miles.");
+			System.out.println("The distance between Airplane 2 and Airplane 3 is " + a2.distTo(a3) + " miles.\n");
+			
+			System.out.println("Initial Height Differences:");
+			System.out.println("The difference in height between Airplane 1 and Airplane 2 is " + a1.altDiff(a2) + " feet.");
+			System.out.println("The difference in height between Airplane 1 and Airplane 3 is " + a1.altDiff(a3) + " feet.");
+			System.out.println("The difference in height between Airplane 2 and Airplane 3 is " + a2.altDiff(a3) + " feet.");
+			
+	
+		
+		
+		}
+
+}
+
+
+
+package javaPack;
+
+public class Main {
+
+	public static void main(String[] args) 
+	{
+		CollectInfo Airplanes = new CollectInfo();
+	}
+
+}
