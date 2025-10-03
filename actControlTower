@@ -1,31 +1,3 @@
-airplane 
-package javaPack;
-
-public class Airplane 
-{
-	private String callsign; 
-	private double distance;
-	private int bearing;
-	private int altitude;
-	
-	public Airplane(String cs, double dist, int dir, int alt)
-	{
-		this.callsign = cs;
-		this.distance = dist;
-		this.bearing = dir;
-		this.altitude = alt;
-	}
-	
-	public int getAlt()
-	{
-		return altitude;
-	}
-
-}
-
-
-main
-
 package javaPack;
 
 public class Main {
@@ -38,7 +10,6 @@ public class Main {
 }
 
 
-collecinfp 
 
 package javaPack;
 
@@ -47,59 +18,11 @@ import java.util.Scanner;
 public class CollectInfo 
 {
 		String cs;
-		Scanner input = new Scanner(System.in);
-		
-		public CollectInfo()
-		{
-			AllInfo();
-		}
-		
-		public void AllInfo()
-		{
-			System.out.println("Enter the information for the third airplane: ");
-			System.out.print("Enter the call-sign: ");
-			cs = input.nextLine();
-			
-			System.out.print("Enter the distance (a postive number): ");
-			double dist = input.nextDouble();
-		
-			System.out.print("Enter the bearing (a positve integer): ");
-			int dir = input.nextInt();
-			
-			System.out.print("What is the altitude (an integer measured in feet): ");
-			int alt = input.nextInt();
-			
-			
-			Airplane Airplane3 = new Airplane(cs,dist,dir,alt);
-			
-			Airplane dyfghg = new Airplane();
-			System.out.println();
-			
-
-		
-	}
-
-}
-
-
-
-package javaPack;
-
-import java.util.Scanner;
-
-public class CollectInfo 
-{
-		String cs;
-		
-		String cs1 = "AAA01";
-		double dist1 = 1;
-		int dir1 = 0;
-		int alt1 = 0;
 		
 		String cs2 = "AAA02";
 		double dist2 = 15.8;
-		int dir2 = 127;
-		int alt2 = 0;
+		int dir2 = 128;
+		int alt2 = 30000;
 		Scanner input = new Scanner(System.in);
 		
 		public CollectInfo()
@@ -116,65 +39,113 @@ public class CollectInfo
 			System.out.print("Enter the distance (a postive number): ");
 			double dist = input.nextDouble();
 		
-			System.out.print("Enter the bearing (a positve integer): ");
+			System.out.print("Enter the bearing: ");
 			int dir = input.nextInt();
 			
-			System.out.print("What is the altitude (an integer measured in feet): ");
+			System.out.print("What is the altitude (a positive integer measured in feet): ");
 			int alt = input.nextInt();
 			
-			
-			Airplane a3 = new Airplane(cs,dist,dir,alt);
-			Airplane a1 = new Airplane(cs1,dist1,dir1,alt1);
+
+			Airplane a1 = new Airplane();
 			Airplane a2 = new Airplane(cs2,dist2,dir2,alt2);
-			
+			Airplane a3 = new Airplane(cs,dist,dir,alt);
 
 			System.out.println("Initial Positions:");
-			System.out.println("'Airplane 1': " + a1.getCs() + " - " + a1.getDist() + " miles away at bearing " + a1.getAlt());
-			System.out.println("'Airplane 2': " + a2.getCs() + " - " + a2.getDist() + " miles away at bearing " + a2.getAlt());
-			System.out.println("'Airplane 3': " + a3.getCs() + " - " + a3.getDist() + " miles away at bearing " + a3.getAlt());
-		
+			System.out.println("'Airplane 1': " + a1.toString());
+			System.out.println("'Airplane 2': " + a2.toString());
+			System.out.println("'Airplane 3': " + a3.toString());
+			
+			System.out.println(a1.distTo(a2));
 	}
 
 }
+
 
 
 package javaPack;
 
 public class Airplane 
 {
-	private String callsign; 
+	private String callsign;
+	private String bearingStr;
 	private double distance;
 	private int bearing;
 	private int altitude;
 	
+    public Airplane() {
+        callsign = "AAA01";
+        distance = 1.0;
+        bearing = 0;
+        altitude = 0;
+    }
+    
 	public Airplane(String cs, double dist, int dir, int alt)
 	{
-		this.callsign = cs;
+		this.callsign = cs.toUpperCase();
 		this.distance = dist;
 		this.bearing = dir;
 		this.altitude = alt;
 	}
 	
-	public String getCs()
-	{
-		String callsignUpper = callsign.toUpperCase();
-		return callsignUpper;
-	}
 
 	public double getDist()
 	{
+		if (distance < 0)
+		{
+			distance = distance - (2.0 * distance);
+		}
+		
 		return distance;
 	}
 
-	public int getDir()
+	public String getDir()
 	{
-		return bearing;
+		if (bearing < 0 && bearing > 360)
+		{
+			bearing = bearing % 360;
+		}
+		
+		bearingStr = "" + bearing;  
+
+	    if (bearing < 10) {
+	        bearingStr = "00" + bearing;   
+	    } else if (bearing < 100) {
+	        bearingStr = "0" + bearing;   
+	    } 
+	    
+		return bearingStr;
 	}
 	
 	public int getAlt()
 	{
+		if (altitude < 0)
+		{
+			altitude = altitude - (2 * altitude);
+		}
 		return altitude;
 	}
-}
+	
+	public String toString()
+	{
+		return callsign + " - " + getDist() + " miles away at bearing " + getDir() + "°, altitude " + getAlt() + " feet";
+	}
+	
+	public double distTo(Airplane other) {
+	    double rad1 = this.bearing * Math.PI / 180.0;
+	    double rad2 = other.bearing * Math.PI / 180.0;
 
+	    double x1 = this.distance * Math.cos(rad1);
+	    double y1 = this.distance * Math.sin(rad1);
+	    double x2 = other.distance * Math.cos(rad2);
+	    double y2 = other.distance * Math.sin(rad2);
+
+	    double dx = x1 - x2;
+	    double dy = y1 - y2;
+	    double dist = Math.sqrt(dx * dx + dy * dy);
+
+	    dist = (int)(dist * 100 + 0.5) / 100.0;
+	    return dist;
+	}
+	
+}
 
