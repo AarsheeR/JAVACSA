@@ -1,107 +1,12 @@
 package javaPack;
 
-public class Airplane 
-{
-	private String callsign;
-	private String bearingStr;
-	private double distance;
-	private int bearing;
-	private int altitude;
-	
-    public Airplane() {
-        callsign = "AAA01";
-        distance = 1.0;
-        bearing = 0;
-        altitude = 0;
-    }
-    
-	public Airplane(String cs, double dist, int dir, int alt)
-	{
-		this.callsign = cs.toUpperCase();
-		this.distance = dist;
-		this.bearing = dir;
-		this.altitude = alt;
-	}
-	
+public class Main {
 
-	public double getDist()
+	public static void main(String[] args) 
 	{
-		if (distance < 0)
-		{
-			distance = distance - (2.0 * distance);
-		}
-		
-		return distance;
+		CollectInfo Airplanes = new CollectInfo();
 	}
 
-	public String getDir()
-	{
-		if (bearing < 0 || bearing > 360)
-		{
-			bearing = bearing % 360;
-		}
-		
-		bearingStr = "" + bearing;  
-
-	    if (bearing < 10) {
-	        bearingStr = "00" + bearing;   
-	    } else if (bearing < 100) {
-	        bearingStr = "0" + bearing;   
-	    } 
-	    
-		return bearingStr;
-	}
-	
-	public int getAlt()
-	{
-		if (altitude < 0)
-		{
-			altitude = altitude - (2 * altitude);
-		}
-		return altitude;
-	}
-	
-	public String toString()
-	{
-		return callsign + " - " + getDist() + " miles away at bearing " + getDir() + "°, altitude " + getAlt() + " feet";
-	}
-	
-	public double distTo(Airplane other) {
-	    double rad1 = this.bearing * Math.PI / 180.0;
-	    double rad2 = other.bearing * Math.PI / 180.0;
-
-	    double x1 = this.distance * Math.cos(rad1);
-	    double y1 = this.distance * Math.sin(rad1);
-	    double x2 = other.distance * Math.cos(rad2);
-	    double y2 = other.distance * Math.sin(rad2);
-
-	    double dx = x1 - x2;
-	    double dy = y1 - y2;
-	    double dist = Math.sqrt(dx * dx + dy * dy);
-
-	    dist = (int)(dist * 100 + 0.5) / 100.0;
-	    return dist;
-	}
-	
-	public int altDiff(Airplane other) {
-		int alt1 = this.altitude;
-		int alt2 = other.altitude;
-		
-		int difference = alt1 - alt2;
-		if (difference < 0)
-		{
-			difference = difference - (2 * difference);
-		}
-		
-		return difference;
-		
-	}
-	
-	public void move(double dist, int dir)
-	{
-		
-	}
-	
 }
 
 
@@ -158,11 +63,41 @@ public class CollectInfo
 			System.out.println("Initial Height Differences:");
 			System.out.println("The difference in height between Airplane 1 and Airplane 2 is " + a1.altDiff(a2) + " feet.");
 			System.out.println("The difference in height between Airplane 1 and Airplane 3 is " + a1.altDiff(a3) + " feet.");
-			System.out.println("The difference in height between Airplane 2 and Airplane 3 is " + a2.altDiff(a3) + " feet.");
+			System.out.println("The difference in height between Airplane 2 and Airplane 3 is " + a2.altDiff(a3) + " feet.\n");
 			
-	
-		
-		
+			//moving to new positions 
+			a1.move(a2.distTo(a3),65);
+			a2.move(8.0, 135);
+			a3.move(5.0, 55);
+			
+			
+			a1.gainAlt();
+			a1.gainAlt();
+			a1.gainAlt();
+			
+			a2.loseAlt();
+			a2.loseAlt();
+			
+			a3.loseAlt();
+			a3.loseAlt();
+			a3.loseAlt();
+			a3.loseAlt();
+			
+			System.out.println("New Positions:");
+			System.out.println("'Airplane 1': " + a1.toString());
+			System.out.println("'Airplane 2': " + a2.toString());
+			System.out.println("'Airplane 3': " + a3.toString());
+			
+			System.out.println("\nNew Distances:");
+			System.out.println("The distance between Airplane 1 and Airplane 2 is " + a1.distTo(a2) + " miles.");
+			System.out.println("The distance between Airplane 1 and Airplane 3 is " + a1.distTo(a3) + " miles.");
+			System.out.println("The distance between Airplane 2 and Airplane 3 is " + a2.distTo(a3) + " miles.\n");
+			
+			System.out.println("New Height Differences:");
+			System.out.println("The difference in height between Airplane 1 and Airplane 2 is " + a1.altDiff(a2) + " feet.");
+			System.out.println("The difference in height between Airplane 1 and Airplane 3 is " + a1.altDiff(a3) + " feet.");
+			System.out.println("The difference in height between Airplane 2 and Airplane 3 is " + a2.altDiff(a3) + " feet.\n");
+			
 		}
 
 }
@@ -171,11 +106,156 @@ public class CollectInfo
 
 package javaPack;
 
-public class Main {
-
-	public static void main(String[] args) 
+public class Airplane 
+{
+	private String callsign;
+	private String bearingStr;
+	private double distance;
+	private int bearing;
+	private int altitude;
+	
+    public Airplane() {
+        callsign = "AAA01";
+        distance = 1.0;
+        bearing = 0;
+        altitude = 0;
+    }
+    
+	public Airplane(String cs, double dist, int dir, int alt)
 	{
-		CollectInfo Airplanes = new CollectInfo();
+		this.callsign = cs.toUpperCase();
+		this.distance = dist;
+		this.bearing = dir;
+		this.altitude = alt;
+	}
+	
+
+	public double getDist()
+	{
+		if (distance < 0)
+		{
+			distance = -distance;
+		}
+		
+		return distance;
 	}
 
+	public String getDir()
+	{
+		if (bearing < 0 || bearing > 360)
+		{
+			bearing = bearing % 360;
+		}
+		
+		bearingStr = "" + bearing;  
+
+	    if (bearing < 10) {
+	        bearingStr = "00" + bearing;   
+	    } else if (bearing < 100) {
+	        bearingStr = "0" + bearing;   
+	    } 
+	    
+		return bearingStr;
+	}
+	
+	public int getAlt()
+	{
+		if (altitude < 0)
+		{
+			altitude = -altitude;
+		}
+		return altitude;
+	}
+	
+	public String toString()
+	{
+		return callsign + " - " + getDist() + " miles away at bearing " + getDir() + "°, altitude " + getAlt() + " feet";
+	}
+	
+	public double distTo(Airplane other) {
+	    double rad1 = this.bearing * Math.PI / 180.0;
+	    double rad2 = other.bearing * Math.PI / 180.0;
+
+	    double x1 = this.distance * Math.cos(rad1);
+	    double y1 = this.distance * Math.sin(rad1);
+	    double x2 = other.distance * Math.cos(rad2);
+	    double y2 = other.distance * Math.sin(rad2);
+
+	    double dx = x1 - x2;
+	    double dy = y1 - y2;
+	    double dist = Math.sqrt(dx * dx + dy * dy);
+
+	    dist = (int)(dist * 100 + 0.5) / 100.0;
+	    return dist;
+	}
+	
+	public int altDiff(Airplane other) {
+		int alt1 = this.altitude;
+		int alt2 = other.altitude;
+		
+		int difference = alt1 - alt2;
+		if (difference < 0)
+		{
+			difference = difference - (2 * difference);
+		}
+		
+		return difference;
+		
+	}
+	
+	public void move(double dist, int dir)
+	{
+		//polar to cartesian
+		double rad = bearing * Math.PI / 180.0;
+	    double x = distance * Math.cos(rad);
+	    double y = distance * Math.sin(rad);
+
+	    // movement in xy plane
+	    double radMove = dir * Math.PI / 180.0;
+	    double dx = dist * Math.cos(radMove);
+	    double dy = dist * Math.sin(radMove);
+
+	    // moving 
+	    x = x + dx;
+	    y = y + dy;
+
+	    // back to polar
+	    distance = Math.sqrt(x * x + y * y);
+
+	    bearing = (int)(Math.atan2(y, x) * 180.0 / Math.PI);
+
+	
+	    if (bearing < 0) {
+	        bearing = bearing + 360;
+	    }
+	    bearing = bearing % 360;
+
+
+	    if (distance < 0) {
+	        distance = -distance;
+	    }
+	    
+	    distance = (int)(distance * 100 + 0.5) / 100.0;
+	}
+	
+	public void gainAlt()
+	{
+		altitude = altitude + 1000;
+	}
+	
+	public void loseAlt()
+	{
+		if (altitude < 1000)
+		{
+			altitude = 0;
+		}
+		else
+		{
+		altitude = altitude - 1000;
+		}
+	}
+	
 }
+
+
+\
