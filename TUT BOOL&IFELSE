@@ -1,0 +1,34 @@
+package javaPack;
+import java.util.Scanner;
+
+public class SmartAccess {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Do you have a valid ID (true/false)? ");
+        boolean hasID = input.nextBoolean();
+
+        System.out.print("Enter your age: ");
+        int age = input.nextInt();
+
+        System.out.print("Enter your name: ");
+        String name = input.nextLine();
+
+        System.out.print("Enter the current hour (0–23): ");
+        int hour = input.nextInt();
+
+        String bannedName = "Aarshee";
+
+        // Normal expression
+        boolean allowed = hasID && age > 18 && !name.equals(bannedName) && (hour >= 8 && hour <= 18);
+
+        // De Morgan’s rewrite 
+        boolean denied = !hasID || age <= 18 || name.equals(bannedName) || hour < 8 || hour > 18;
+
+        // Both ways give the same result
+        if (!denied)
+            System.out.println("Access granted");
+        else
+            System.out.println("Access denied");
+    }
+}
