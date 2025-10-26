@@ -1,0 +1,155 @@
+//main class -- initializes the program
+package javaPack;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		CollectInfo code = new CollectInfo();
+	}
+
+}
+
+
+//collectinfo class -- collects user name and user guesses for the code
+package javaPack;
+
+import java.util.Scanner;
+
+public class CollectInfo {
+
+    Scanner input = new Scanner(System.in);
+    ReadyCode thecode;
+    String name;
+    
+    public CollectInfo() {
+        AllInfo();
+    }
+
+    public void AllInfo() {
+        System.out.println("Welcome to Crack The Code!");
+
+        System.out.print("Before we start playing, what is your name: ");
+        name = input.nextLine();
+
+        askReady(name);  // call helper method
+    }
+
+    public void askReady(String uname) {
+        thecode = new ReadyCode(uname);
+        String readyto = thecode.CheckReady();
+
+        if (readyto.equals("YES")) {
+        		System.out.println("\nAlright, " + uname + ". The code is split into three secrets.");
+            System.out.println("Crack them all, and victory is yours. One wrong move, and it’s game over.\n");
+            firstHint();
+        } 
+        else if (readyto.equals("NO")) {
+            System.out.println("That's too bad! See you later!");
+        } 
+        else {
+            System.out.println("Please input 'YES' or 'NO'.");
+            askReady(uname);   // calls itself again to allow the user another chance  
+        }
+    }
+    
+    public void firstHint()
+    {
+    		System.out.println("Hint 1: It’s a short word. Just three steps long. Not one more, not one less.");
+    		System.out.print("Enter the first part of the code: ");
+        String firstguess = input.nextLine();
+        
+        //check first guess
+        if (firstguess.length() == 3)
+        {
+        		System.out.println("Correct!");
+        		secondHint();
+        }
+        else
+        {
+        		System.out.println("Too long or too short. Precision matters! You failed to crack the code.");
+        }
+    }
+    
+    public void secondHint()
+    {
+    		System.out.println("Hint 2: This number’s picky. It either loves being nineteen, or prefers to hide somewhere between thirty-five and seventy-seven!");
+    		System.out.print("Enter the second part of the code: ");
+        int secondguess = input.nextInt();
+        
+        //check second guess
+        if (secondguess == 19 || (secondguess > 34 && secondguess < 78))
+        {
+        		System.out.println("Correct. You're almost there!");
+        		thirdHint();
+        }
+        else
+        {
+        		System.out.println("Nope. That number is not welcome here! You failed to crack the code.");
+        }
+    }
+    
+    public void thirdHint()
+    {
+    		System.out.println("Hint 3: The last one stays positive, and either loves even company or ends in a dramatic one.");
+    		System.out.print("Enter the third part of the code: ");
+        int thirdguess = input.nextInt();
+        
+        //check second guess
+        if (thirdguess > 0 && (thirdguess % 2 == 0 || thirdguess % 10 == 1))
+        {
+        		System.out.println("You cracked the code! 🎉 The vault unlocks and it rains confetti. Congrats " + name + "!");
+        }
+        else
+        {
+        		System.out.println("So close, yet so wrong. The code is gone forever...You failed " + name + "😔...");
+        }
+    }
+}
+
+
+
+
+//readycode class -- checks if the user is ready to code 
+package javaPack;
+
+import java.util.Scanner;
+
+public class ReadyCode {
+
+	private String username;	
+	private String readyto;	
+	Scanner input = new Scanner(System.in);	
+	
+	public ReadyCode(String uname)	
+	{		
+		this.username = uname;	
+		System.out.print("Hello " + username + "! Are you ready to Crack The Code: ");			
+		readyto = input.nextLine();
+	}		
+	
+	public String CheckReady()	
+	{		
+		this.readyto = readyto.toUpperCase();	
+		if (readyto.equals("YES") || readyto.equals("NO"))		
+		{			
+			if (readyto == "YES")			
+			{				
+				readyto = "YES";			
+			}			
+			if (readyto == "NO")			
+			{				
+				readyto = "NO";			
+			}		
+		}		
+		else		
+		{			
+			readyto = "false";		
+		}		
+		return readyto;			
+		}
+	
+	}
+
+
+
