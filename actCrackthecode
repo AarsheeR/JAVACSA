@@ -1,10 +1,11 @@
-//main class -- initializes the program
+//Main class -- initializes the program
 package javaPack;
 
 public class Main {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) 
+	{
+		//new constructor to initialize the program
 		CollectInfo code = new CollectInfo();
 	}
 
@@ -31,7 +32,7 @@ public class CollectInfo {
 
         System.out.print("Before we start playing, what is your name: ");
         name = input.nextLine();
-
+//CHECK IF THIS IS EMPTY FIX
         askReady(name);  // call helper method
     }
 
@@ -55,10 +56,10 @@ public class CollectInfo {
     
     public void firstHint()
     {
-    		System.out.println("Hint 1: It’s a short word. Just three steps long. Not one more, not one less.");
-    		System.out.print("Enter the first part of the code: ");
+    	System.out.println("Hint 1: It’s a short string. Just three steps long. Not one more, not one less.");
+    	System.out.print("Enter the first part of the code: ");
         String firstguess = input.nextLine();
-        
+        //CHECK IF EMPTY FIX
         //check first guess
         if (firstguess.length() == 3)
         {
@@ -73,10 +74,10 @@ public class CollectInfo {
     
     public void secondHint()
     {
-    		System.out.println("Hint 2: This number’s picky. It either loves being nineteen, or prefers to hide somewhere between thirty-five and seventy-seven!");
-    		System.out.print("Enter the second part of the code: ");
+    	System.out.println("Hint 2: This number’s picky. It either loves being nineteen, or prefers to hide somewhere between thirty-five and seventy-seven!");
+    	System.out.print("Enter the second part of the code: ");
         int secondguess = input.nextInt();
-        
+      //CHECK IF EMPTY FIX
         //check second guess
         if (secondguess == 19 || (secondguess > 34 && secondguess < 78))
         {
@@ -94,7 +95,7 @@ public class CollectInfo {
     		System.out.println("Hint 3: The last one stays positive, and either loves even company or ends in a dramatic one.");
     		System.out.print("Enter the third part of the code: ");
         int thirdguess = input.nextInt();
-        
+      //CHECK IF EMPTY FIX
         //check second guess
         if (thirdguess > 0 && (thirdguess % 2 == 0 || thirdguess % 10 == 1))
         {
@@ -103,10 +104,11 @@ public class CollectInfo {
         else
         {
         		System.out.println("So close, yet so wrong. The code is gone forever...You failed " + name + "😔...");
+        		
         }
     }
+    
 }
-
 
 
 
@@ -150,6 +152,5 @@ public class ReadyCode {
 		}
 	
 	}
-
 
 
