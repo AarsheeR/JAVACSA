@@ -1,0 +1,93 @@
+//Main class -- initializes program 
+package javaPack;
+
+public class MainProgram {
+
+	public static void main(String[] args) {
+		CollectInfo allinfo = new CollectInfo();
+	}
+
+}
+
+
+//CollectInfo class -- asks how many grades will be averaged
+package javaPack;
+
+import java.util.Scanner;
+
+public class CollectInfo {
+
+	static Scanner allinput = new Scanner(System.in);
+	public CollectInfo()
+	{
+		AskInfo();
+	}
+	
+	public void AskInfo()
+	{
+		float numgrades;
+		boolean yesorno;
+		
+		System.out.print("How many grades will you be averaging? ");
+		numgrades = allinput.nextFloat();
+		yesorno = CheckNum(numgrades);
+		if (yesorno)
+		{
+			Calculate average = new Calculate(numgrades);
+		}
+		else
+		{
+			AskInfo();
+		}
+	}
+	
+	public boolean CheckNum(float gradenum)
+	{
+		boolean boolstate = true;
+		
+		float isyes = gradenum % 1;
+		
+		if (isyes > 0)
+		{
+			return false; //Not an integer 
+		}
+		else 
+		{
+			if (gradenum < 1 || gradenum >= 100)
+			{
+				return false; //Not a number between 1-100
+			}
+			else
+			{
+				return true; //Meets Criteria
+			}
+		}
+		
+	}
+}
+
+
+
+//Calculate class -- asks about the grades and calculates average
+package javaPack;
+
+public class Calculate {
+
+	private int numgrade;
+	
+	public Calculate(float gradenum)
+	{
+		this.numgrade = (int) gradenum;
+		AskGrades(numgrade);
+	}
+	
+	public void AskGrades(int ngrade)
+	{
+		int i = 0;
+		while (i > (ngrade - 1))
+		{
+			System.out.print("");
+		}
+	}
+}
+
