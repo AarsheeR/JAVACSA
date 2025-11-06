@@ -10,6 +10,8 @@ public class MainProgram {
 }
 
 
+
+
 //CollectInfo class -- asks how many grades will be averaged
 package javaPack;
 
@@ -28,7 +30,7 @@ public class CollectInfo {
 		float numgrades;
 		boolean yesorno;
 		
-		System.out.print("How many grades will you be averaging? ");
+		System.out.print("How many grades will you be averaging? 0-100: ");
 		numgrades = allinput.nextFloat();
 		yesorno = CheckNum(numgrades);
 		if (yesorno)
@@ -37,6 +39,7 @@ public class CollectInfo {
 		}
 		else
 		{
+			System.out.println("Please input a whole number between 0-100!");
 			AskInfo();
 		}
 	}
@@ -68,26 +71,94 @@ public class CollectInfo {
 
 
 
+
+
+
+
 //Calculate class -- asks about the grades and calculates average
 package javaPack;
 
-public class Calculate {
+import java.util.Scanner;
 
+public class Calculate {
+	
+	static Scanner allinput = new Scanner(System.in);
 	private int numgrade;
 	
-	public Calculate(float gradenum)
+	public Calculate(float numgrade)
 	{
-		this.numgrade = (int) gradenum;
-		AskGrades(numgrade);
+		this.numgrade = (int) numgrade;
+		AskGrades();
 	}
 	
-	public void AskGrades(int ngrade)
-	{
-		int i = 0;
-		while (i > (ngrade - 1))
-		{
-			System.out.print("");
-		}
-	}
-}
+	public void AskGrades() {
+        float totalPercent = 0;
+        float totalGPA = 0;
+        int i = 0;
 
+        while (i < numgrade) {
+            System.out.print("Enter grade #" + (i + 1) + ": ");
+            float grade = allinput.nextFloat();
+
+            if (grade < 0 || grade > 100) {
+                System.out.println("Invalid grade! Must be between 0 and 100.");
+                
+            }
+            else
+            {
+            		i++;
+            		float gpa = ConvertToGPA(grade);
+	            String letter = ConvertToLetter(grade);
+	
+	            System.out.println("Grade: " + grade + " | GPA: " + gpa + " | Letter: " + letter);
+	            totalPercent += grade;
+	            totalGPA += gpa;
+            }
+
+            
+            
+        }
+
+        float avgPercent = totalPercent / numgrade;
+        float avgGPA = totalGPA / numgrade;
+        String finalLetter = ConvertToLetter(avgPercent);
+
+        System.out.println("\nFINAL RESULTS");
+        System.out.println("Average (0–100): " + avgPercent);
+        System.out.println("Average GPA (1–4): " + avgGPA);
+        System.out.println("Average Letter Grade: " + finalLetter);
+    }
+
+    // Convert numeric grade to GPA 1–4
+    public float ConvertToGPA(float grade) {
+    		return (grade / 100) * 4; // ratio of grade/100 = x/4
+    }
+
+    // Convert numeric grade to letter using switch-like structure
+    public String ConvertToLetter(float grade) {
+    	int category;
+
+        if (grade >= 95 && grade <= 100)
+            category = 1;   // A
+        else if (grade >= 85 && grade < 95)
+            category = 2;   // B
+        else if (grade >= 75 && grade < 85)
+            category = 3;   // C
+        else if (grade >= 65 && grade < 75)
+            category = 4;   // D
+        else if (grade >= 0 && grade < 65)
+            category = 5;   // F
+        else
+            category = 0;   // Invalid
+
+        switch (category) {
+            case 1: return "A";
+            case 2: return "B";
+            case 3: return "C";
+            case 4: return "D";
+            case 5: return "F";
+            default: return "Invalid";
+        }
+    }
+
+}
