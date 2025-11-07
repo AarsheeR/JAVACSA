@@ -10,71 +10,6 @@ public class MainProgram {
 }
 
 
-
-
-//CollectInfo class -- asks how many grades will be averaged
-package javaPack;
-
-import java.util.Scanner;
-
-public class CollectInfo {
-
-	static Scanner allinput = new Scanner(System.in);
-	public CollectInfo()
-	{
-		AskInfo();
-	}
-	
-	public void AskInfo()
-	{
-		float numgrades;
-		boolean yesorno;
-		
-		System.out.print("How many grades will you be averaging? 0-100: ");
-		numgrades = allinput.nextFloat();
-		yesorno = CheckNum(numgrades);
-		if (yesorno)
-		{
-			Calculate average = new Calculate(numgrades);
-		}
-		else
-		{
-			System.out.println("Please input a whole number between 0-100!");
-			AskInfo();
-		}
-	}
-	
-	public boolean CheckNum(float gradenum)
-	{
-		boolean boolstate = true;
-		
-		float isyes = gradenum % 1;
-		
-		if (isyes > 0)
-		{
-			return false; //Not an integer 
-		}
-		else 
-		{
-			if (gradenum < 1 || gradenum >= 100)
-			{
-				return false; //Not a number between 1-100
-			}
-			else
-			{
-				return true; //Meets Criteria
-			}
-		}
-		
-	}
-}
-
-
-
-
-
-
-
 //Calculate class -- asks about the grades and calculates average
 package javaPack;
 
@@ -96,8 +31,8 @@ public class Calculate {
         float totalGPA = 0;
         int i = 0;
 
-        while (i < numgrade) {
-            System.out.print("Enter grade #" + (i + 1) + ": ");
+        while (i < numgrade) { //Ask for the desired amount of grades
+            System.out.print("Enter grade #" + (i + 1) + " (0-100) : ");
             float grade = allinput.nextFloat();
 
             if (grade < 0 || grade > 100) {
@@ -111,7 +46,7 @@ public class Calculate {
 	            String letter = ConvertToLetter(grade);
 	
 	            System.out.println("Grade: " + grade + " | GPA: " + gpa + " | Letter: " + letter);
-	            totalPercent += grade;
+	            totalPercent += grade; //Add to the sum
 	            totalGPA += gpa;
             }
 
@@ -119,8 +54,10 @@ public class Calculate {
             
         }
 
-        float avgPercent = totalPercent / numgrade;
+        float avgPercent = totalPercent / numgrade; //Calculate the average
+        avgPercent = (int)(avgPercent * 100 + 0.5f) / 100.0f;
         float avgGPA = totalGPA / numgrade;
+        avgGPA = (int)(avgGPA * 100 + 0.5f) / 100.0f;
         String finalLetter = ConvertToLetter(avgPercent);
 
         System.out.println("\nFINAL RESULTS");
@@ -162,3 +99,64 @@ public class Calculate {
     }
 
 }
+
+
+//CollectInfo class -- asks how many grades will be averaged
+package javaPack;
+
+import java.util.Scanner;
+
+public class CollectInfo {
+
+	static Scanner allinput = new Scanner(System.in);
+	public CollectInfo()
+	{
+		AskInfo();
+	}
+	
+	public void AskInfo()
+	{
+		float numgrades;
+		boolean yesorno;
+		
+		System.out.print("How many grades will you be averaging? 0-100: "); //Can average a max of 100 grades
+		numgrades = allinput.nextFloat();
+		yesorno = CheckNum(numgrades);
+		if (yesorno)
+		{
+			Calculate average = new Calculate(numgrades);
+		}
+		else
+		{
+			System.out.println("Please input a whole number between 0-100!");
+			AskInfo();
+		}
+	}
+	
+	public boolean CheckNum(float gradenum)
+	{
+		boolean boolstate = true;
+		
+		float isyes = gradenum % 1;
+		
+		if (isyes > 0)
+		{
+			return false; //Not an integer 
+		}
+		else 
+		{
+			if (gradenum < 1 || gradenum >= 100)
+			{
+				return false; //Not a number between 1-100
+			}
+			else
+			{
+				return true; //Meets criteria
+			}
+		}
+		
+	}
+}
+
+
+
