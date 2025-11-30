@@ -1,0 +1,123 @@
+package javaPack;
+
+public class MainProgram { //Parent class
+
+
+	public static void main(String[] args) {
+	
+		ArrayChar arrchar = new ArrayChar();
+		System.out.println("Welcome to my letter counting words!");
+		System.out.print("This program will print out each "
+						+ "letter of a word n amount of times\n"
+						+ "Enter a number: ");
+		arrchar.AcceptInfo();
+
+	 
+	}
+
+}
+
+
+
+package javaPack;
+
+import java.util.Scanner;
+// ArrayChar class is the subclass
+// ArrayChar is extending the functionality of the MainProgram
+
+public class ArrayChar extends MainProgram {
+	Scanner allinput = new Scanner(System.in);
+
+	public void ArrayChar()
+	{
+		AcceptInfo();
+
+	}
+
+
+	public void AcceptInfo()
+	{
+		String numStr = allinput.nextLine();   // read as STRING first
+		
+		float numletters = 0;
+		if (numStr.equals("")) {
+		    System.out.println("You entered nothing!");
+		    MainProgram.main(null);
+		    return;
+		} 
+		
+		numletters = Float.parseFloat(numStr);   // convert ONLY if not empty
+		
+		
+		if(numletters % 1 != 0 || numletters == 0)
+		{
+			System.out.print("Incorrect value has been entered. \n");
+			MainProgram.main(null);
+			return;
+		}
+		else
+		{
+			int num = (int) numletters;
+
+			System.out.print("Enter a word: ");
+			String wordent = allinput.nextLine();
+	
+			CheckWord(wordent, num);
+		
+		}
+		
+	}
+	
+	private void CheckWord(String entword, int nnum)
+	{
+		int wordlen = entword.length();
+		if (wordlen == 0)
+		{
+			System.out.print("Please make sure to enter a word! \n");
+			MainProgram.main(null);
+			return;
+		}
+		else
+		{
+			char[] wordarray = new char[wordlen]; //sets the array to the length of the word
+		
+			for(int i=0; i<wordlen; i++)
+			{
+				wordarray[i] = entword.charAt(i);
+				if ((int)wordarray[i] <= 96 || (int)wordarray[i] >= 123)
+				{
+					System.out.print(wordarray[i] + " is not a letter!\n");
+				}
+				else
+				{
+					System.out.print(wordarray[i] + " is a letter!\n");
+				}
+
+			}
+			
+			char[] wordprinting = new char[wordlen * nnum]; //sets the array to the length of the word with each character repeated nnum times
+			int arraylen = wordprinting.length;
+			for(int i=0; i<wordlen; i++)
+			{
+				for(int n=0; n<nnum; n++)
+				{
+					wordprinting[i * nnum + n] = entword.charAt(i);
+				}
+			}
+	
+			
+			for(int i=0; i<arraylen; i++)
+			{
+				System.out.print(wordprinting[i]);
+			}
+	
+
+
+		}
+		
+		}
+
+	}
+	
+	
+
