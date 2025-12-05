@@ -1,0 +1,76 @@
+//Main program: initialize program 
+package javaPack;
+
+import java.util.Scanner;
+
+public class MainProgram {
+
+	public static void main(String[] args) {
+			CollectInfo();
+	}
+	private static void CollectInfo()
+	{
+		Scanner input = new Scanner(System.in);
+		
+		System.out.print("Enter the hour of day (in 24 hour time): ");
+		String strhouroftime = input.nextLine();
+		
+		if (strhouroftime.equals("")) {
+		    System.out.println("You entered nothing!");
+		    CollectInfo();
+		    return;
+		} 
+		
+		int houroftime = Integer.parseInt(strhouroftime);   // convert ONLY if not empty
+		
+		if (houroftime < 0 || houroftime > 23)
+		{
+			System.out.println("Invalid time entered. Please enter an integer between 0-23.");
+			CollectInfo();
+			return;
+		}
+		
+		Time hour = new Time(houroftime);
+		
+		System.out.println("Time of Day: " + hour.timeOfDay(houroftime));
+		
+		
+		}
+}
+
+
+package javaPack;
+
+
+public class Time {
+	private int houroftime;
+
+	public Time(int timeofhour)
+	{
+		this.houroftime = timeofhour;
+		
+	}
+	
+	public String timeOfDay(int h)
+	{
+		 if (h == 0) {
+	            return "midnight";
+	        }
+	        else if (h > 0 && h < 12) {
+	            return "morning";
+	        }
+	        else if (h == 12) {
+	            return "noon";
+	        }
+	        else if (h > 12 && h < 18) {
+	            return "afternoon";
+	        }
+	        else if (h == 18) {
+	            return "dusk";
+	        }
+	        else { // 18 < h < 24
+	            return "evening";
+	        }
+	}
+}
+
