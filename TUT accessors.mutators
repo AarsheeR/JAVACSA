@@ -1,0 +1,66 @@
+package javaPack;
+
+import java.util.Scanner;
+
+public class MainBank {
+
+	Scanner allinput = new Scanner(System.in);
+	public static void main(String[] args) 
+	{
+		//Object and constructor creation 
+		DisplayMain();
+	}
+	
+	static void DisplayMain()
+	{
+		//Set the mutators to set the data 
+		BankAccount myAccount = new BankAccount();
+		myAccount.setAccountHolder("Mr. Pigis");
+		myAccount.setBalance(100000);
+	
+		System.out.println("User: " + myAccount.getAccountHolder());
+		System.out.println("Balance: $" + myAccount.getBalance());
+	} 
+
+}
+
+
+
+package javaPack;
+
+public class BankAccount {
+
+	private String accountHolder;
+	private double accountBalance;
+	
+	//ACCESSORS
+	//These methods retrieve, read, or get the information 
+	//All accessors begin with the word "get"
+	public String getAccountHolder()
+	{
+		return accountHolder;
+	}
+	public double getBalance()
+	{
+		return accountBalance;
+	}
+	
+	//MUTATROS
+	//These methods modify, manipulate, change the information to suite the program's needs
+	//All mutators begin with the word "set"
+	public void setAccountHolder(String name)
+	{
+		this.accountHolder = "Greetings,  " + name + " I am happy to assist you!";
+	}
+	public void setBalance(double money)
+	{
+		if (money >= 0)
+		{
+			this.accountBalance = money;
+		}
+		else
+		{
+			System.out.println("Error! There is an issue with the transaction!");
+		}
+	}
+}
