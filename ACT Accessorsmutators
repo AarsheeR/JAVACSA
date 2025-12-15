@@ -15,8 +15,22 @@ public class MainBank {
 	{
 		System.out.print("Enter account holder name: ");
 		String user = allinput.nextLine();
+		if (user.equals(""))
+		{
+			System.out.println("Please enter a name.");
+			GetInfo();
+			return;
+		}
 		System.out.print("Enter account balance: ");
-		double balance = allinput.nextDouble();
+		String strbalance = allinput.nextLine();
+		if (strbalance.equals("")) {
+		    System.out.println("Invalid Input. Restarting process...");
+		    GetInfo();
+		    return;
+		} 
+		
+		Double balance = Double.parseDouble(strbalance);
+
 		//Object and constructor creation 
 		DisplayMain(user,balance);
 	}
@@ -30,6 +44,9 @@ public class MainBank {
 	
 		System.out.println(myAccount.getAccountHolder());
 		System.out.println("Balance: $" + myAccount.getBalance());
+		allinput.nextLine();
+		GetInfo();
+		return;
 	} 
 
 }
