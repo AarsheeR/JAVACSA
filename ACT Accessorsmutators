@@ -44,9 +44,9 @@ public class MainBank {
 	
 		System.out.println(myAccount.getAccountHolder());
 		System.out.println("Balance: $" + myAccount.getBalance());
-		allinput.nextLine();
+		System.out.println("---------------------------------------------");
 		GetInfo();
-		return;
+	
 	} 
 
 }
