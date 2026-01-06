@@ -2,17 +2,50 @@ main:
 
 package javaPack;
 
+import java.util.Scanner;
+
 public class Main {
 
-	public static void main(String[] args) 
-	{
-		CollectInfo Player = new CollectInfo();
-	}
+	private static String choice = "Y";
+	static Scanner input = new Scanner(System.in);
+    public static void main(String[] args) {
+    		
+        
+        while (true) {
 
+            Player.resetNumPlayers();
+            new CollectInfo();   // run once
+
+            Restart();
+            
+        }
+
+    }
+    public static void Restart()
+    {
+    		System.out.print("\nRun again? (Y/N): ");
+        choice = input.nextLine().toUpperCase();
+
+        if (choice.equals("Y") || choice.equals("YES")) {
+            return;   // run again
+        }
+        else if (choice.equals("N") || choice.equals("NO")) {
+        		System.out.println("Program ended.");   
+        		System.exit(0); // how do i stop program
+        }
+        else {
+            System.out.println("Please enter Y or N:");
+            Restart();
+        }
+ 
+    }
 }
 
 
+
 collectinfo : 
+package javaPack;
+
 import java.util.Scanner;
 
 public class CollectInfo {
@@ -84,8 +117,8 @@ package javaPack;
 
 public class Player 
 {
-
-    //  Variables 
+	
+    // Variables
     private static int numPlayers = 0;
     private int x;
     private int y;
@@ -94,74 +127,164 @@ public class Player
     private int hp;
     private String name;
 
-    //  Constructors 
+    // Restarting Purposes
+    public static void resetNumPlayers() {
+        numPlayers = 0;
+    }
+
+    // Constructors 
     public Player() {
+        numPlayers++;
+
+        this.name = "P" + numPlayers;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+        this.hp = 20;
+        this.direction = 1; // North
     }
 
     public Player(String name, int x, int y, int z) {
+    	     numPlayers++;
+
+         this.name = name; //do we ask user for this?
+         this.x = x;
+         this.y = y;
+         this.z = z;
+         this.hp = 20;
+         this.direction = 1; // North
     }
 
     public Player(String name, int x, int y, int z, int health, int direction) {
+        numPlayers++;
+
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+
+        if (health < 0) {
+            this.hp = 0;
+        } else {
+            this.hp = health;
+        }
+
+        if (direction < 1 || direction > 6) {
+            this.direction = 1;
+        } else {
+            this.direction = direction;
+        }
     }
 
-    //  Accessors 
+    // ========== Accessors ==========
     public int getNumPlayers() {
         return numPlayers;
     }
 
     public String getName() {
-        return "";
+        return name;
     }
 
     public int getX() {
-        return 0;
+        return x;
     }
 
     public int getY() {
-        return 0;
+        return y;
     }
 
     public int getZ() {
-        return 0;
+        return z;
     }
 
     public int getHp() {
-        return 0;
+        return hp;
     }
 
     public int getDirection() {
-        return 0;
+        return direction;
     }
 
     public String toString() {
-        return "";
+    	return "Name: " + name +
+                "\nHealth: " + hp +
+                "\nCoordinates: X " + x + " Y " + y + " Z " + z +
+                "\nDirection: " + direction;
     }
 
-    //  Mutators 
+    // ========== Mutators ==========
     public void setHp(int hp) {
+    		if (hp < 0) {
+            this.hp = 0;
+        } else {
+            this.hp = hp;
+        }
     }
 
     public void setDirection(int direction) {
+    		if (direction >= 1 && direction <= 6) {
+            this.direction = direction;
+        }
     }
 
     public void move(int direction, int units) {
+        if (direction == 1) {          // North
+            x = x + units;
+        } else if (direction == 2) {   // South
+            x = x - units;
+        } else if (direction == 3) {   // Up
+            y = y + units;
+        } else if (direction == 4) {   // Down
+            y = y - units;
+        } else if (direction == 5) {   // East
+            z = z + units;
+        } else if (direction == 6) {   // West
+            z = z - units;
+        }
     }
 
     public void teleport(int x, int y, int z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
     }
 
     public void teleport(Player player) {
+        this.x = player.x;
+        this.y = player.y;
+        this.z = player.z;
     }
 
     public void attack(Player player, int damage) {
+        if (damage < 0) {
+            return;
+        }
+
+        player.hp = player.hp - damage;
+
+        if (player.hp < 0) {
+            player.hp = 0;
+        }
+
+        this.hp = this.hp + (damage / 2);
     }
 
-    //  Additional Methods 
+    // ========== Additional Methods ==========
     public double getDistance(int x, int y, int z) {
-        return 0.0;
+        int dx = this.x - x;
+        int dy = this.y - y;
+        int dz = this.z - z;
+
+        double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        return  (int)(dist * 100 + 0.5) / 100.0;
     }
 
     public double getDistance(Player player) {
-        return 0.0;
+        int dx = this.x - player.x;
+        int dy = this.y - player.y;
+        int dz = this.z - player.z;
+
+        double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        return  (int)(dist * 100 + 0.5) / 100.0;
     }
 }
