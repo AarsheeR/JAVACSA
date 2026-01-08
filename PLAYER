@@ -449,26 +449,18 @@ public class CollectInfo {
         String name2 = askInfo("Name: ");
        
         String strx2 = askInfo("X coordinate (only input integers): ");
-		
 		int x2 = Integer.parseInt(strx2);
 
 		
         String stry2 = askInfo("Y coordinate (only input integers): ");
-		
 		int y2 = Integer.parseInt(stry2);
 		
-		
-        System.out.print("Z coordinate (only input integers): ");
-        String strz2 = input.nextLine();
-        if (strz2.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
+	
+        String strz2 = askInfo("Z coordinate (only input integers): ");
         int z2 = Integer.parseInt(strz2);    
         
-	    	Player p2 = new Player(name2, x2, y2, z2);
+	    
+        Player p2 = new Player(name2, x2, y2, z2);
 	    	
         System.out.println(p2);
         System.out.println("\nSecond Player created...\n--------------------------------");
@@ -476,63 +468,27 @@ public class CollectInfo {
         //third players creation using parameters
         System.out.println("Enter information for Player 3:");
         System.out.print("Name: ");
-        String name3 = input.nextLine();
-		if (name3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-        System.out.print("X coordinate (only input integers): ");
-        String strx3 = input.nextLine();
-		if (strx3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
+        String name3 = askInfo("Name: ");
+
+        
+        String strx3 = askInfo("X coordinate (only input integers): ");
 		int x3 = Integer.parseInt(strx3);
 
-        System.out.print("Y coordinate (only input integers): ");
-        String stry3 = input.nextLine();
-        if (stry3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
+
+        String stry3 = askInfo("Y coordinate (only input integers): ");
 		int y3 = Integer.parseInt(stry3);
 		
-		
-        System.out.print("Z coordinate (only input integers): ");
-        String strz3 = input.nextLine();
-        if (strz3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-		int z3 = Integer.parseInt(strz3);        
+	
+        String strz3 = askInfo("Z coordinate (only input integers): ");
+        int z3 = Integer.parseInt(strz3);        
 
-        System.out.print("Health (only input integers): ");
-        String strhp = input.nextLine();
-        if (strhp.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-		int hp = Integer.parseInt(strhp);
 
-        System.out.print("Direction (only input the integers between 1-6 ): ");
-        String strdir = input.nextLine();
-        if (strdir.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-		int dir = Integer.parseInt(strdir);
+        String strhp = askInfo("Health (only input integers): ");
+        int hp = Integer.parseInt(strhp);
+
+        
+        String strdir = askInfo("Direction (only input the integers between 1-6 ): ");
+        int dir = Integer.parseInt(strdir);
 
 	
         Player p3 = new Player(name3, x3, y3, z3, hp, dir);
