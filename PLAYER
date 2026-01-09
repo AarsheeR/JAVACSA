@@ -1,3 +1,24 @@
+public void attack(Player player, int damage) {
+
+    // Step 1: store original health
+    int originalHp = player.hp;
+
+    // Step 2: subtract damage
+    player.hp = player.hp - damage;
+
+    // Step 3: clamp to 0
+    if (player.hp < 0) {
+        player.hp = 0;
+    }
+
+    // Step 4: calculate actual damage dealt
+    int damageDealt = originalHp - player.hp;
+
+    // Step 5: attacker gains half the damage dealt
+    this.hp = this.hp + (damageDealt / 2);
+}
+
+
 main:
 
 package javaPack;
