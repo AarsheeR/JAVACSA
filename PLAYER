@@ -7,41 +7,40 @@ import java.util.Scanner;
 public class Main {
 
 	private static String choice = "Y";
-		static Scanner input = new Scanner(System.in);
-		
-	    public static void main(String[] args) {
-	    		
-	        
-	        while (true) {
+	static Scanner input = new Scanner(System.in);
+	
+    public static void main(String[] args) {
+    		
+        
+        while (true) {
 
-	         
-	            new CollectInfo();   // run once
+         
+            new CollectInfo();   // run once
 
-	            Restart();
-	            
-	        }
+            Restart();
+            
+        }
 
-	    }
-	    public static void Restart()
-	    {
-	    	System.out.print("\nPlay another round? (Y/yes/N/no): ");
-	        choice = input.nextLine().toUpperCase();
+    }
+    public static void Restart()
+    {
+    	System.out.print("\nPlay another round? (Y/yes/N/no): ");
+        choice = input.nextLine().toUpperCase();
 
-	        if (choice.equals("Y") || choice.equals("YES")) {
-	            return;   // run again
-	        }
-	        else if (choice.equals("N") || choice.equals("NO")) {
-	        		System.out.println("Program ended.");   
-	        		System.exit(0); //exit out of program if no
-	        }
-	        else {
-	            System.out.println("Please enter Y or N:");
-	            Restart();
-	        }
-	 
-	    }
-	}
-
+        if (choice.equals("Y") || choice.equals("YES")) {
+            return;   // run again
+        }
+        else if (choice.equals("N") || choice.equals("NO")) {
+        		System.out.println("Program ended.");   
+        		System.exit(0); //exit out of program if no
+        }
+        else {
+            System.out.println("Please enter Y or N:");
+            Restart();
+        }
+ 
+    }
+}
 
 
 collectinfo : 
@@ -50,7 +49,6 @@ package javaPack;
 import java.util.Scanner;
 
 public class CollectInfo {
-
     Scanner input = new Scanner(System.in);
 
     public CollectInfo() {
@@ -77,112 +75,50 @@ public class CollectInfo {
     	System.out.println(p1);
     	System.out.println("\nDefault Player created...\n--------------------------------");
     	
-    	//second player creation using parameters // redo checking process
+    	//second player creation using parameters 
     	System.out.println("Enter information for Player 2:");
-        System.out.print("Name: ");
-        String name2 = input.nextLine();
-		if (name2.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-        System.out.print("X coordinate (only input integers): ");
-        String strx2 = input.nextLine();
-		if (strx2.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
+        String name2 = askInfo("Name: ");
+       
+        String strx2 = askInfo("X coordinate (only input integers): ");
 		int x2 = Integer.parseInt(strx2);
 
-        System.out.print("Y coordinate (only input integers): ");
-        String stry2 = input.nextLine();
-        if (stry2.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
 		
+        String stry2 = askInfo("Y coordinate (only input integers): ");
 		int y2 = Integer.parseInt(stry2);
 		
-		
-        System.out.print("Z coordinate (only input integers): ");
-        String strz2 = input.nextLine();
-        if (strz2.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
+	
+        String strz2 = askInfo("Z coordinate (only input integers): ");
         int z2 = Integer.parseInt(strz2);    
         
-	    	Player p2 = new Player(name2, x2, y2, z2);
+	    
+        Player p2 = new Player(name2, x2, y2, z2);
 	    	
         System.out.println(p2);
         System.out.println("\nSecond Player created...\n--------------------------------");
         
         //third players creation using parameters
         System.out.println("Enter information for Player 3:");
-        System.out.print("Name: ");
-        String name3 = input.nextLine();
-		if (name3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-        System.out.print("X coordinate (only input integers): ");
-        String strx3 = input.nextLine();
-		if (strx3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
+        String name3 = askInfo("Name: ");
+
+        
+        String strx3 = askInfo("X coordinate (only input integers): ");
 		int x3 = Integer.parseInt(strx3);
 
-        System.out.print("Y coordinate (only input integers): ");
-        String stry3 = input.nextLine();
-        if (stry3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
+
+        String stry3 = askInfo("Y coordinate (only input integers): ");
 		int y3 = Integer.parseInt(stry3);
 		
-		
-        System.out.print("Z coordinate (only input integers): ");
-        String strz3 = input.nextLine();
-        if (strz3.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-		int z3 = Integer.parseInt(strz3);        
+	
+        String strz3 = askInfo("Z coordinate (only input integers): ");
+        int z3 = Integer.parseInt(strz3);        
 
-        System.out.print("Health (only input integers): ");
-        String strhp = input.nextLine();
-        if (strhp.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-		int hp = Integer.parseInt(strhp);
 
-        System.out.print("Direction (only input the integers between 1-6 ): ");
-        String strdir = input.nextLine();
-        if (strdir.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    allInfo();
-		    return;
-		} 
-		
-		int dir = Integer.parseInt(strdir);
+        String strhp = askInfo("Health (only input integers): ");
+        int hp = Integer.parseInt(strhp);
+
+        
+        String strdir = askInfo("Direction (only input the integers between 1-6 ): ");
+        int dir = Integer.parseInt(strdir);
 
 	
         Player p3 = new Player(name3, x3, y3, z3, hp, dir);
@@ -226,6 +162,7 @@ public class CollectInfo {
         System.out.println(p3.toString());
     }
 }
+    
 
 
 
@@ -236,7 +173,7 @@ package javaPack;
 public class Player 
 {
 	
-    // Variables
+	// Variables
     private static int numPlayers = 0;
     private int x;
     private int y;
@@ -245,10 +182,6 @@ public class Player
     private int hp;
     private String name;
 
-    // Restarting Purposes //do i still need this
-    public static void resetNumPlayers() {
-        numPlayers = 0;
-    }
 
     // Constructors 
     public Player() {
@@ -404,131 +337,5 @@ public class Player
 
         double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
         return  (int)(dist * 100 + 0.5) / 100.0;
-    }
-}
-
-
-
-
-
-COLLECT INFO:
-package javaPack;
-
-import java.util.Scanner;
-
-public class CollectInfo {
-
-    Scanner input = new Scanner(System.in);
-
-    public CollectInfo() {
-        allInfo();
-    }
-
-    public String askInfo(String question)
-    {
-        System.out.print(question);
-        String info = input.nextLine();
-		if (info.equals("")) {
-		    System.out.println("Invalid Input. Restarting process...\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-		    return askInfo(question);
-		} 
-		else
-		{
-			return info;
-		}
-    }
-    
-    public void allInfo() {
-		//default (first) player creation
-    	Player p1 = new Player();
-    	System.out.println(p1);
-    	System.out.println("\nDefault Player created...\n--------------------------------");
-    	
-    	//second player creation using parameters // redo checking process
-    	System.out.println("Enter information for Player 2:");
-        String name2 = askInfo("Name: ");
-       
-        String strx2 = askInfo("X coordinate (only input integers): ");
-		int x2 = Integer.parseInt(strx2);
-
-		
-        String stry2 = askInfo("Y coordinate (only input integers): ");
-		int y2 = Integer.parseInt(stry2);
-		
-	
-        String strz2 = askInfo("Z coordinate (only input integers): ");
-        int z2 = Integer.parseInt(strz2);    
-        
-	    
-        Player p2 = new Player(name2, x2, y2, z2);
-	    	
-        System.out.println(p2);
-        System.out.println("\nSecond Player created...\n--------------------------------");
-        
-        //third players creation using parameters
-        System.out.println("Enter information for Player 3:");
-        System.out.print("Name: ");
-        String name3 = askInfo("Name: ");
-
-        
-        String strx3 = askInfo("X coordinate (only input integers): ");
-		int x3 = Integer.parseInt(strx3);
-
-
-        String stry3 = askInfo("Y coordinate (only input integers): ");
-		int y3 = Integer.parseInt(stry3);
-		
-	
-        String strz3 = askInfo("Z coordinate (only input integers): ");
-        int z3 = Integer.parseInt(strz3);        
-
-
-        String strhp = askInfo("Health (only input integers): ");
-        int hp = Integer.parseInt(strhp);
-
-        
-        String strdir = askInfo("Direction (only input the integers between 1-6 ): ");
-        int dir = Integer.parseInt(strdir);
-
-	
-        Player p3 = new Player(name3, x3, y3, z3, hp, dir);
-
-        //accessors and mutators used 
-        System.out.println("\nCurrent Players:");
-        System.out.println(p1.toString());
-        System.out.println(p2.toString());
-        System.out.println(p3.toString());
-
-        System.out.println("\nDistances:");
-        System.out.println(p1.getName() + "(Default Player) to " + p2.getName() + "(Player 2): " + p1.getDistance(p2));
-        System.out.println(p1.getName() + "(Default Player) to " + p3.getName() + "(Player 3): " + p1.getDistance(p3));
-        System.out.println(p2.getName() + "(Player 2) to " + p3.getName() + "(Player 3): " + p2.getDistance(p3));
-
-        System.out.println("\nMoving players...");
-        p1.move(1, 3); // north
-        p2.move(5, 4); // east
-        p3.teleport(p1);
-        
-        System.out.println(p1.getName() + " is moving north 3 units.");
-        System.out.println(p2.getName() + " is moving east 4 units.");
-        System.out.println(p3.getName() + " is teleporting to " + p1.getName() + ".");
-        
-        System.out.println("\nAfter movement:");
-        System.out.println("Name: " + p1.getName() + "\nCoordinates: X " + p1.getX() + " Y " + p1.getY() + " Z " + p1.getZ() + 
-        		"\nDirection: " + p1.getDirection());
-        System.out.println("Name: " + p2.getName() + "\nCoordinates: X " + p2.getX() + " Y " + p2.getY() + " Z " + p2.getZ()+ 
-        		"\nDirection: " + p2.getDirection());
-        System.out.println("Name: " + p3.getName() + "\nCoordinates: X " + p3.getX() + " Y " + p3.getY() + " Z " + p3.getZ()+ 
-        		"\nDirection: " + p3.getDirection());
-
-        System.out.println("\nAttacking...");
-        p1.attack(p2, 6);
-
-        System.out.println(p1.getName() + " is attempting to deal 6 units of damage upon " + p2.getName() + ".");
-        
-        System.out.println("\nAfter attack:");
-        System.out.println(p1.toString());
-        System.out.println(p2.toString());
-        System.out.println(p3.toString());
     }
 }
