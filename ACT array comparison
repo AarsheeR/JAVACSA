@@ -1,0 +1,52 @@
+package javaPack;
+
+public class Array {
+	
+	public Array()
+	{
+		ArrayInfo();
+	}
+	
+	public void ArrayInfo()
+	{
+		String[] words = {"high", "every", "nearing", 
+				"checking", "food", "stand", "value", "best", "energy", "add",
+				"grand", "notation", "addition", "food", "stand"};
+
+		int reflen = words[0].length();
+		
+		// find shortest length
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() < reflen) {
+                reflen = words[i].length();
+            }
+        }
+		
+        // count how many words have that length
+        int count = 0;
+        for (int i = 0; i < words.length; i++) {
+            if (words[i].length() == reflen) {
+                count++;
+            }
+        }
+        
+        
+        // store them
+		int index = 0;
+		String[] shortestwrds = new String[count];
+		
+		for 	(int i = 0; i < words.length; i++ ) {
+			
+			if (words[i].length() == reflen) {
+				shortestwrds[index] = words[i];
+				index++;
+			}
+		}
+		
+		//print result
+		for (int i = 0; i < shortestwrds.length; i++ ) {
+			System.out.println(shortestwrds[i]);
+		}
+		}
+		
+}
