@@ -1,0 +1,241 @@
+MAIN PROGRAM: 
+
+
+package javaPack;
+//main class initializes arrays and the program
+import java.util.Scanner;
+
+public class Main {
+
+	static Scanner input = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Initialize();
+	}
+	
+	public static void Initialize() {
+		
+		int numhowmany = 0;
+    	
+		// keep asking until a valid response
+        while (true) {
+        		System.out.print("How many items would you like to store? Please enter an integer: "); 
+        		String howmany = input.nextLine();
+
+        		if (CheckInt(howmany)) {
+                numhowmany = Integer.parseInt(howmany);
+
+                if (numhowmany >= 1 ) {
+                    break;
+                }
+                else {
+                    System.out.println("Number must be at least 1.");
+                }
+            }
+        }
+        
+        //after a valid response 
+        Product[] inventory = new Product[numhowmany];
+        
+        for (int i = 0; i < numhowmany; i++) {
+        		String name = Name();
+        		int quantity = Quantity();
+        		float price = Price();
+    		    System.out.println("--------------------");
+        		inventory[i] = new Product(name, price, quantity);
+        		
+        }
+        double total = 0;
+
+		for (int i = 0; i < numhowmany; i++) {
+		    total = total + (inventory[i].getPrice() * inventory[i].getQuantity());
+		}
+
+		System.out.println("\n--- Inventory List ---");
+
+		for (int i = 0; i < inventory.length; i++) {
+		    System.out.println("Product #" + (i + 1));
+		    System.out.println("Name: " + inventory[i].getName().trim());
+		    System.out.println("Quantity: " + inventory[i].getQuantity());
+		    System.out.println("Price: $" + ((int)(inventory[i].getPrice() * 100) / 100.0));
+		    System.out.println("--------------------");
+		}
+
+		System.out.println("Total inventory value: " + total);
+		Restart();
+	}
+	
+	
+	public static String Name() {
+		String name = "";
+		while (true) {
+
+            System.out.print("Enter the name of the item: ");
+            name = input.nextLine();
+
+            if (CheckStr(name)) {
+                break;
+            }
+        }
+		return name;
+	}
+	
+	public static int Quantity() {
+		int numquantity = 0;
+		while (true) {
+
+            System.out.print("Enter the quantity: ");
+            String quantity = input.nextLine();
+
+            if (CheckInt(quantity)) {
+            		numquantity = Integer.parseInt(quantity);
+                break;
+            }
+        }
+		return numquantity;
+	}
+	
+	public static float Price() {
+		float numprice = 0;
+		while (true) {
+
+            System.out.print("Enter the unit price: ");
+            String price = input.nextLine();
+
+            if (CheckFloat(price)) {
+            		numprice = Float.parseFloat(price);
+                break;
+            }
+        }
+		return numprice;
+	}
+
+
+
+
+PRODUCT: 
+
+package javaPack;
+//product sets information to store
+public class Product {
+    private String name;
+    private double price;
+    private int quantity;
+
+    public Product(String n, float p, int q) {
+        name = n;
+        price = p;
+        quantity = q;
+    }
+
+    public String getName() {
+        return name;
+    }
+    
+    public double getPrice() {
+        return price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+}
+	
+	public static boolean CheckStr(String string) {
+		string = string.trim();
+		int stringlen = string.length();
+	    	// check if the input was empty
+	    	if (!CheckEmpty(stringlen)) {
+	    		return false;
+	    	}
+	    	
+	    	string = string.toUpperCase();
+	    	char[] numarray = new char[stringlen]; //set an array to the length of the input 
+	    	for (int i = 0; i < stringlen; i++) {
+	    		numarray[i] = string.charAt(i);
+	    		if (((int)numarray[i] < 65 || (int)numarray[i] > 90) && ((int)numarray[i] != 32)) {
+	    			System.out.println("Please input a proper product name. (only letters and spaces)");
+	    			return false;
+	    		}
+	    	} 
+	    	return true;
+	}
+	
+	public static boolean CheckFloat(String floatnum) {
+		floatnum = floatnum.trim();
+		int floatlen = floatnum.length();
+	    	// check if the input was empty
+	    	if (!CheckEmpty(floatlen)) {
+	    		return false;
+	    	}
+	    	
+	    	//check decimal points
+        int dotCount = 0;
+
+        for (int i = 0; i < floatlen; i++) {
+            char c = floatnum.charAt(i);
+
+            if (c == '.') {
+                dotCount++;
+                if (dotCount > 1) {
+                    System.out.println("Please enter a proper money amount.");
+                    return false;
+                }
+            }
+            else if (c < '0' || c > '9') {
+                System.out.println("Please enter a proper money amount.");
+                return false;
+            }
+        }	    
+        
+	    	return true;
+	}
+	
+
+	public static boolean CheckInt(String num) {
+		num = num.trim();
+		int numlen = num.length();
+	    	// check if the input was empty
+	    	if (!CheckEmpty(numlen)) {
+	    		return false;
+	    	}
+	    	
+	    	char[] numarray = new char[numlen]; //set an array to the length of the input 
+	    	for (int i = 0; i < numlen; i++) {
+	    		numarray[i] = num.charAt(i);
+	    		if ((int)numarray[i] < 48 || (int)numarray[i] > 57) {
+	    			System.out.println("Please input an integer.");
+	    			return false;
+	    		}
+	    	}
+	    	return true;
+	    }
+		
+	public static boolean CheckEmpty(int numl) {
+    	// check if the input was empty
+    	if (numl == 0) {
+    		System.out.println("Please enter a value.");
+    		return false;
+    	}
+    	return true;
+}
+	public static void Restart() {
+		System.out.print("\nWould you like to try again? Y/N: ");
+		String yesno = input.nextLine();
+		
+		yesno = yesno.toUpperCase();
+		if (yesno.equals("YES") || yesno.equals("Y"))
+		{
+			Initialize();
+		}
+		else if (yesno.equals("NO") || yesno.equals("N")){
+			System.out.println("Thank you. Good Bye.");
+		}
+		else
+		{ 
+			System.out.println("Please input yes or no.");
+			Restart();
+		}
+	}
+}
