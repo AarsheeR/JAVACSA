@@ -1,0 +1,205 @@
+MAIN
+
+package javaPack;
+//The main program controls the direction of the application and helps process to DisplayMenu
+import java.util.Scanner;
+
+public class MainRestaurant {
+
+	static Scanner input = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Initialize();
+	}
+	
+	public static void Initialize() {
+		System.out.println("Welcome to The Restaurant!");
+		String whichmeal = "";
+        while (true) {
+	    		System.out.print("What meal would you like?"
+	    				+ "\n1) Breakfast"
+	    				+ "\n2) Lunch"
+	    				+ "\n3) Dinner"
+	    				+ "\nPlease enter 1,2 or 3:"); 
+	    		whichmeal = input.nextLine();
+	
+	    		if ((whichmeal.length() == 0) || (whichmeal.length() > 1)) {
+	    			System.out.println("-------------------\nPlease enter 1,2, or 3.");
+	    		}
+	    		else {
+		    		if(((int)whichmeal.charAt(0) > 48) && ((int)whichmeal.charAt(0) < 52)) {
+		    				break;
+		    			}
+		    		else {
+		    			System.out.println("-------------------\nPlease enter 1,2, or 3.");
+		    		}
+	    		
+	    		}
+	    	}
+        
+        // After user input is checked
+        DisplayMenu order = new DisplayMenu(whichmeal);
+	}
+
+}
+
+
+DISPLAYMENU
+package javaPack;
+
+public class DisplayMenu {
+
+	public DisplayMenu(String meal) {
+		//breakfast arrays
+		String[] breakfastNames = {"Pancakes",
+			    "Scrambled Eggs",
+			    "Vanilla Oatmeal Bowl",
+			    "Chocolate Oatmeal Bowl",
+			    "Blueberry Muffin"
+			};
+
+		double[] breakfastPrices = {
+		    5.99,
+		    4.50,
+		    3.99,
+		    4.50,
+		    2.50
+		};
+		//lunch arrays
+		String[] lunchNames = {
+			    "Grilled Cheese Sandwich",
+			    "Chicken Caesar Salad",
+			    "Turkey Wrap",
+			    "Rice and Beans",
+			    "Pizza"
+			};
+
+		double[] lunchPrices = {
+		    6.50,
+		    8.99,
+		    7.80,
+		    5.50,
+		    3.99   // per slice
+		};
+		//dinner arrays
+		String[] dinnerNames = {
+			    "Spaghetti and Meatballs",
+			    "Grilled Salmon",
+			    "Steak with Vegetables",
+			    "Chicken Over Rice",
+			    "Beef Stew"
+			};
+
+		double[] dinnerPrices = {
+		    10.99,
+		    14.99,
+		    16.50,
+		    9.50,
+		    11.30
+		};
+		
+		//display items based on the category
+		int mealnum = Integer.parseInt(meal);
+		System.out.println("-----------------------");
+		if (mealnum == 1) {
+			//display breakfast meals
+		    System.out.println("BREAKFAST FOODS"
+		            + "\n1) Pancakes - $5.99"
+		            + "\n2) Scrambled Eggs - $4.50"
+		            + "\n3) Vanilla Oatmeal Bowl - $3.99"
+		            + "\n4) Chocolate Oatmeal Bowl - $4.50"
+		            + "\n5) Blueberry Muffin - $2.50");
+		    OrderMenu ordering = new OrderMenu(breakfastNames, breakfastPrices);
+		}
+		else if (mealnum == 2) {
+			//display lunch meals
+		    System.out.println("LUNCH FOODS"
+		            + "\n1) Grilled Cheese Sandwich - $6.50"
+		            + "\n2) Chicken Caesar Salad - $8.99"
+		            + "\n3) Turkey Wrap - $7.80"
+		            + "\n4) Rice and Beans - $5.50"
+		            + "\n5) Pizza - $3.99 per slice");
+		    OrderMenu ordering = new OrderMenu(lunchNames, lunchPrices);
+		}
+		else {
+			//display dinner meals
+		    System.out.println("DINNER FOODS"
+		            + "\n1) Spaghetti and Meatballs - $10.99"
+		            + "\n2) Grilled Salmon - $14.99"
+		            + "\n3) Steak with Vegetables - $16.50"
+		            + "\n4) Chicken Over Rice - $9.50"
+		            + "\n5) Beef Stew - $11.30");
+		    OrderMenu ordering = new OrderMenu(dinnerNames, dinnerPrices);
+		}
+	}
+
+}
+
+
+ODERINGMENU
+
+package javaPack;
+
+import java.util.Scanner;
+
+public class OrderMenu {
+
+	Scanner input = new Scanner(System.in);
+	public OrderMenu(String[] mealNames, double[] mealPrices) {
+		
+		String order = "";
+		while(true) {
+		System.out.print("What would you like to order? Please enter 1,2,3,4, or 5:");
+		order = input.nextLine();
+		
+		if ((order.length() == 0) || (order.length() > 1)) {
+			System.out.println("-------------------\nPlease enter 1,2,3,4, or 5");
+		}
+		else {
+    		if(((int)order.charAt(0) > 48) && ((int)order.charAt(0) < 54)) {
+    			int ordernum = Integer.parseInt(order);
+    			//save the user's order to an array
+    			saveItem(mealNames[ordernum-1],mealPrices[ordernum-1]);
+    			//ask the user if they would like to order another item
+    			if (!orderMore()) {
+    				break;
+    			}
+    		}
+    		else {
+    			System.out.println("-------------------\nPlease enter 1,2,3,4, or 5");
+    		}
+			
+		}
+	}
+		//here go to receipt with the mealNames and the mealPrice and the new arraylist
+	}
+	
+	public void saveItem(String name, double price) {
+		System.out.println(name + " " + price); //ask for the quantity and then save the item
+		//x amount of times into an arraylist 
+	}
+	
+	public boolean orderMore() {
+		while(true) {
+		System.out.print("\nWould you like to order more items? Y/N: ");
+		String yesno = input.nextLine();
+		
+		yesno = yesno.toUpperCase();
+		if (yesno.equals("YES") || yesno.equals("Y"))
+		{
+			return true;
+		}
+		else if (yesno.equals("NO") || yesno.equals("N")){
+			return false;
+		}
+		else
+		{ 
+			System.out.println("Please input yes or no.");
+		}
+		}
+	}
+}
+
+RECIEPT
+
