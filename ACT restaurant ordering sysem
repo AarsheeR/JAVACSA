@@ -178,7 +178,45 @@ public class OrderMenu {
 	public void saveItem(String name, double price) {
 		System.out.println(name + " " + price); //ask for the quantity and then save the item
 		//x amount of times into an arraylist 
+		String quantity = "";
+		int quantitynum = 0;
+       while (true) {
+	    		System.out.print("How many of this item would you like?");
+	    		quantity = input.nextLine();
+	
+	    		if (CheckInt(quantity)) {
+	    			quantitynum = Integer.parseInt(quantity);
+
+	                if (quantitynum >= 1 ) {
+	                    break;
+	                }
+	                else {
+	                    System.out.println("Number must be at least 1.");
+	                }
+	    		}
+	    		
+	    	}
 	}
+	
+	public static boolean CheckInt(String num) {
+		num = num.trim();
+		int numlen = num.length();
+	    	// check if the input was empty
+	    	if (!CheckEmpty(numlen)) {
+	    		return false;
+	    	}
+	    	
+	    	char[] numarray = new char[numlen]; //set an array to the length of the input 
+	    	for (int i = 0; i < numlen; i++) {
+	    		numarray[i] = num.charAt(i);
+	    		if ((int)numarray[i] < 48 || (int)numarray[i] > 57) {
+	    			System.out.println("Please input an integer.");
+	    			return false;
+	    		}
+	    	}
+	    	return true;
+	    }
+	
 	
 	public boolean orderMore() {
 		while(true) {
