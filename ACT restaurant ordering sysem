@@ -21,18 +21,18 @@ public class MainRestaurant {
 	    				+ "\n1) Breakfast"
 	    				+ "\n2) Lunch"
 	    				+ "\n3) Dinner"
-	    				+ "\nPlease enter 1,2 or 3:"); 
+	    				+ "\nPlease enter 1, 2 or 3:"); 
 	    		whichmeal = input.nextLine();
 	
 	    		if ((whichmeal.length() == 0) || (whichmeal.length() > 1)) {
-	    			System.out.println("-------------------\nPlease enter 1,2, or 3.");
+	    			System.out.println("-------------------\nPlease enter 1, 2, or 3.");
 	    		}
 	    		else {
 		    		if(((int)whichmeal.charAt(0) > 48) && ((int)whichmeal.charAt(0) < 52)) {
 		    				break;
 		    			}
 		    		else {
-		    			System.out.println("-------------------\nPlease enter 1,2, or 3.");
+		    			System.out.println("-------------------\nPlease enter 1, 2, or 3.");
 		    		}
 	    		
 	    		}
@@ -142,80 +142,84 @@ ODERINGMENU
 package javaPack;
 
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class OrderMenu {
 
 	Scanner input = new Scanner(System.in);
+	
+	ArrayList<String> ordername = new ArrayList<>();
+	ArrayList<Double> orderprice = new ArrayList<>();
+	
 	public OrderMenu(String[] mealNames, double[] mealPrices) {
 		
 		String order = "";
 		while(true) {
-		System.out.print("What would you like to order? Please enter 1,2,3,4, or 5:");
-		order = input.nextLine();
-		
-		if ((order.length() == 0) || (order.length() > 1)) {
-			System.out.println("-------------------\nPlease enter 1,2,3,4, or 5");
-		}
-		else {
-    		if(((int)order.charAt(0) > 48) && ((int)order.charAt(0) < 54)) {
-    			int ordernum = Integer.parseInt(order);
-    			//save the user's order to an array
-    			saveItem(mealNames[ordernum-1],mealPrices[ordernum-1]);
-    			//ask the user if they would like to order another item
-    			if (!orderMore()) {
-    				break;
-    			}
-    		}
-    		else {
-    			System.out.println("-------------------\nPlease enter 1,2,3,4, or 5");
-    		}
+			System.out.print("What would you like to order? Please enter 1, 2, 3, 4, or 5:");
+			order = input.nextLine();
 			
+			if ((order.length() == 0) || (order.length() > 1)) {
+				System.out.println("-------------------\nPlease enter 1, 2, 3, 4, or 5");
+			}
+			else {
+	    		if(((int)order.charAt(0) > 48) && ((int)order.charAt(0) < 54)) {
+	    			int ordernum = Integer.parseInt(order);
+	    			//save the user's order to an array
+	    			saveItem(mealNames[ordernum-1],mealPrices[ordernum-1]);
+	    			//ask the user if they would like to order another item
+	    			if (!orderMore()) {
+	    				break;
+	    			}
+	    		}
+	    		else {
+	    			System.out.println("-------------------\nPlease enter 1, 2, 3, 4, or 5");
+	    		}
+			}
 		}
-	}
-		//here go to receipt with the mealNames and the mealPrice and the new arraylist
+		
+		Reciept items = new Reciept(ordername, orderprice);
 	}
 	
 	public void saveItem(String name, double price) {
-		System.out.println(name + " " + price); //ask for the quantity and then save the item
-		//x amount of times into an arraylist 
 		String quantity = "";
 		int quantitynum = 0;
-       while (true) {
-	    		System.out.print("How many of this item would you like?");
-	    		quantity = input.nextLine();
-	
-	    		if (CheckInt(quantity)) {
-	    			quantitynum = Integer.parseInt(quantity);
+		while (true) {
+    		System.out.print("How many of this item would you like?");
+    		quantity = input.nextLine();
+    		
+    		int check = 1;
+    		quantity = quantity.trim();
+    		if (quantity.length() == 0) {
+    			System.out.println("Please enter an integer greater than zero");
+    		}
+    		else {
+    			char[] quantarr = new char[quantity.length()];
+    			for (int i = 0; i < quantity.length(); i++) {
+    				quantarr[i] = quantity.charAt(i);
+    				if ((int)quantarr[i] < 48 || (int)quantarr[i] > 57) {
+    	    			System.out.println("Please input an integer.");
+    	    			check = 0;
+    	    		}
+    			}
+    			
+    			if (check == 1) {
+    			    quantitynum = Integer.parseInt(quantity);  
+    			    if (quantitynum >= 1) {
+    			        break;
+    			    } else {
+    			        System.out.println("Please enter an integer greater than zero.");
+    			    }
+    			}
 
-	                if (quantitynum >= 1 ) {
-	                    break;
-	                }
-	                else {
-	                    System.out.println("Number must be at least 1.");
-	                }
-	    		}
+    		}
 	    		
-	    	}
-	}
-	
-	public static boolean CheckInt(String num) {
-		num = num.trim();
-		int numlen = num.length();
-	    	// check if the input was empty
-	    	if (!CheckEmpty(numlen)) {
-	    		return false;
-	    	}
-	    	
-	    	char[] numarray = new char[numlen]; //set an array to the length of the input 
-	    	for (int i = 0; i < numlen; i++) {
-	    		numarray[i] = num.charAt(i);
-	    		if ((int)numarray[i] < 48 || (int)numarray[i] > 57) {
-	    			System.out.println("Please input an integer.");
-	    			return false;
-	    		}
-	    	}
-	    	return true;
 	    }
+		//store items to arrays
+		ordername.add(name + " (" + quantitynum + ")");
+		double totalprice = price * quantitynum;
+		orderprice.add(totalprice);
+	}
+
 	
 	
 	public boolean orderMore() {
@@ -239,5 +243,34 @@ public class OrderMenu {
 	}
 }
 
+
 RECIEPT
 
+package javaPack;
+
+import java.util.ArrayList;
+
+public class Reciept {
+
+	
+	public Reciept(ArrayList<String> ordername, ArrayList<Double> orderprice) {
+		double subtotal = 0.0;
+		System.out.println("------------------------------"
+				+ "\nRECIEPT"
+				+ "\n------------------------------");
+		for (int i = 0; i < ordername.size(); i++) {
+			System.out.println(ordername.get(i) + " - " + orderprice.get(i));
+			subtotal = subtotal + orderprice.get(i);
+		}
+		double tax = subtotal * 0.0875;
+		double total = subtotal + tax;
+		System.out.println("------------------------------"
+				+ "\nSUBTOTAL: " + (Math.round(subtotal * 100.0) / 100.0)
+				+ "\nTAX: " +  (Math.round(tax * 100.0) / 100.0)
+				+ "\nTOTAL: " + (Math.round(total * 100.0) / 100.0)
+				+ "\nThank You!"
+				);
+				
+	}
+
+}
