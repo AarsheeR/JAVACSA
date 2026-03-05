@@ -137,6 +137,7 @@ public class DisplayMenu {
 }
 
 
+
 ODERINGMENU
 
 package javaPack;
@@ -148,8 +149,8 @@ public class OrderMenu {
 
 	Scanner input = new Scanner(System.in);
 	
-	ArrayList<String> ordername = new ArrayList<>();
-	ArrayList<Double> orderprice = new ArrayList<>();
+	static ArrayList<String> ordername = new ArrayList<>();
+	static ArrayList<Double> orderprice = new ArrayList<>();
 	
 	public OrderMenu(String[] mealNames, double[] mealPrices) {
 		
@@ -170,6 +171,9 @@ public class OrderMenu {
 	    			if (!orderMore()) {
 	    				break;
 	    			}
+	    			else {
+	    				
+	    			}
 	    		}
 	    		else {
 	    			System.out.println("-------------------\nPlease enter 1, 2, 3, 4, or 5");
@@ -177,7 +181,11 @@ public class OrderMenu {
 			}
 		}
 		
-		Reciept items = new Reciept(ordername, orderprice);
+		Receipt items = new Receipt(ordername, orderprice);
+	}
+	
+	public OrderMenu() {
+		//default constructor
 	}
 	
 	public void saveItem(String name, double price) {
@@ -241,6 +249,11 @@ public class OrderMenu {
 		}
 		}
 	}
+	
+	public void ClearArray() {
+		ordername.clear();
+		orderprice.clear();
+	}
 }
 
 
@@ -250,10 +263,12 @@ package javaPack;
 
 import java.util.ArrayList;
 
-public class Reciept {
+import com.sun.tools.javac.Main;
+
+public class Receipt extends MainRestaurant {
 
 	
-	public Reciept(ArrayList<String> ordername, ArrayList<Double> orderprice) {
+	public Receipt(ArrayList<String> ordername, ArrayList<Double> orderprice) {
 		double subtotal = 0.0;
 		System.out.println("------------------------------"
 				+ "\nRECIEPT"
@@ -269,8 +284,31 @@ public class Reciept {
 				+ "\nTAX: " +  (Math.round(tax * 100.0) / 100.0)
 				+ "\nTOTAL: " + (Math.round(total * 100.0) / 100.0)
 				+ "\nThank You!"
+				+ "\n------------------------------"
 				);
 				
+		Restart();
+	}
+	
+	public static void Restart() {
+		System.out.print("\nWould you like to place another order? Y/N: ");
+		String yesno = input.nextLine();
+		
+		yesno = yesno.toUpperCase();
+		if (yesno.equals("YES") || yesno.equals("Y"))
+		{
+			OrderMenu clearorder = new OrderMenu();
+			clearorder.ClearArray();
+			MainRestaurant.main(null);
+		}
+		else if (yesno.equals("NO") || yesno.equals("N")){
+			System.out.println("Thank you. Good Bye.");
+		}
+		else
+		{ 
+			System.out.println("Please input yes or no.");
+			Restart();
+		}
 	}
 
 }
