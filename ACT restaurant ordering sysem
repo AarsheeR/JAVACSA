@@ -10,11 +10,11 @@ public class MainRestaurant {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		System.out.println("Welcome to The Restaurant!");
 		Initialize();
 	}
 	
 	public static void Initialize() {
-		System.out.println("Welcome to The Restaurant!");
 		String whichmeal = "";
         while (true) {
 	    		System.out.print("What meal would you like?"
@@ -138,6 +138,7 @@ public class DisplayMenu {
 
 
 
+
 ODERINGMENU
 
 package javaPack;
@@ -172,7 +173,8 @@ public class OrderMenu {
 	    				break;
 	    			}
 	    			else {
-	    				
+	    				MainRestaurant moreitems = new MainRestaurant();
+	    				moreitems.Initialize();
 	    			}
 	    		}
 	    		else {
@@ -255,6 +257,7 @@ public class OrderMenu {
 		orderprice.clear();
 	}
 }
+
 
 
 RECIEPT
