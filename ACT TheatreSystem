@@ -1,0 +1,94 @@
+package javaPack;
+
+public class MainProgram {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Initialize();
+	}
+	
+	public static void Initialize() {
+		System.out.println("Welcome to The Theatre!");
+		AskInfo user = new AskInfo();
+	}
+
+}
+
+
+
+package javaPack;
+
+import java.util.Scanner;
+
+public class AskInfo {
+	
+	Scanner input = new Scanner(System.in);
+	public AskInfo() {
+		String name = "";
+		while(true) {
+			System.out.print("Please enter your name: ");
+			name = input.nextLine();
+    		
+    		int check = 1;
+    		name = name.trim().toUpperCase();
+    		if (name.length() == 0) {
+    			System.out.println("-------------------\nPlease enter a name.");
+    		}
+    		else {
+    			char[] namearr = new char[name.length()];
+    			for (int i = 0; i < name.length(); i++) {
+    				namearr[i] = name.charAt(i);
+    				if ((int)namearr[i] < 65 || (int)namearr[i] > 89) {
+    	    			System.out.println("-------------------\nPlease enter a name.");
+    	    			check = 0;
+    	    		}
+    			}
+    			
+    			if (check == 1) {
+    			    break;
+    			}
+
+    		}
+    		
+    		HowManySeats();
+		}
+	}
+	
+	public void HowManySeats() {
+		int quantitynum = 0;
+		while (true) {
+    		System.out.print("How many of seats would you like to reserve?");
+    		String quantity = input.nextLine();
+    		
+    		int check = 1;
+    		quantity = quantity.trim();
+    		if (quantity.length() == 0) {
+    			System.out.println("Please enter an integer greater than zero");
+    		}
+    		else {
+    			char[] quantarr = new char[quantity.length()];
+    			for (int i = 0; i < quantity.length(); i++) {
+    				quantarr[i] = quantity.charAt(i);
+    				if ((int)quantarr[i] < 48 || (int)quantarr[i] > 57) {
+    	    			System.out.println("Please input an integer.");
+    	    			check = 0;
+    	    		}
+    			}
+    			
+    			if (check == 1) {
+    			    quantitynum = Integer.parseInt(quantity);  
+    			    if (quantitynum >= 1) {
+    			        break;
+    			    } else {
+    			        System.out.println("Please enter an integer greater than zero.");
+    			    }
+    			}
+
+    		}
+	    		
+	    }
+		
+		
+	}
+
+}
