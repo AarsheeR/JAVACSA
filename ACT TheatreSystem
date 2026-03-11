@@ -1,15 +1,16 @@
 package javaPack;
+//main program initializes program
 
 public class MainProgram {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Initialize();
 	}
 	
 	public static void Initialize() {
 		System.out.println("Welcome to The Theatre!");
-		AskInfo user = new AskInfo();
+		Theatre seats = new Theatre(); // initializes seats
+		AskInfo user = new AskInfo(); // gathers user ticket information
 	}
 
 }
@@ -22,9 +23,13 @@ import java.util.Scanner;
 
 public class AskInfo {
 	
+	private String name = "";
+	private int columnnum = 0;
+	private String row = "";
 	Scanner input = new Scanner(System.in);
+	
 	public AskInfo() {
-		String name = "";
+		System.out.println("-----------------");
 		while(true) {
 			System.out.print("Please enter your name: ");
 			name = input.nextLine();
@@ -32,14 +37,14 @@ public class AskInfo {
     		int check = 1;
     		name = name.trim().toUpperCase();
     		if (name.length() == 0) {
-    			System.out.println("-------------------\nPlease enter a name.");
+    			System.out.println("\nPlease enter a name.\n");
     		}
     		else {
     			char[] namearr = new char[name.length()];
     			for (int i = 0; i < name.length(); i++) {
     				namearr[i] = name.charAt(i);
     				if ((int)namearr[i] < 65 || (int)namearr[i] > 89) {
-    	    			System.out.println("-------------------\nPlease enter a name.");
+    	    			System.out.println("\nPlease enter a name.");
     	    			check = 0;
     	    		}
     			}
@@ -50,20 +55,21 @@ public class AskInfo {
 
     		}
     		
-    		HowManySeats();
 		}
+		HowManySeats();
 	}
 	
 	public void HowManySeats() {
 		int quantitynum = 0;
+		System.out.println("-----------------");
 		while (true) {
-    		System.out.print("How many of seats would you like to reserve?");
+    		System.out.print("\nHow many of seats would you like to reserve?");
     		String quantity = input.nextLine();
     		
     		int check = 1;
     		quantity = quantity.trim();
     		if (quantity.length() == 0) {
-    			System.out.println("Please enter an integer greater than zero");
+    			System.out.println("Please enter an integer greater than zero.");
     		}
     		else {
     			char[] quantarr = new char[quantity.length()];
@@ -87,8 +93,177 @@ public class AskInfo {
     		}
 	    		
 	    }
+		for (int i = 0; i < quantitynum; i++) {
+
+		    WhichSeats();
+
+		    int rowIndex = row.charAt(0) - 'A';
+		    int colIndex = columnnum - 1;
+
+		    if(Theatre.seats[rowIndex][colIndex].equals("EMPTY")) {
+		        Theatre.seats[rowIndex][colIndex] = name;
+		        System.out.println("Seat reserved successfully!");
+		    }
+		    else {
+		        System.out.println("Seat already taken. Please choose another.");
+		        i--; // retry same seat
+		    }
+
+		}
 		
+		BuyMore();
+	}
+	public void WhichSeats() {
+		System.out.println("-----------------");
+		while(true) {
+			System.out.print("\nWhich seat would you like to reserve?"
+    				+ " Enter the row (A-E): ");
+			row = input.nextLine();
+    		
+    		int check = 1;
+    		row = row.trim().toUpperCase();
+    		if ((row.length() == 0) || (row.length() > 1)) {
+    			System.out.println("\nPlease enter the row (A-E).");
+    		}
+    		else {
+    			char[] rowarr = new char[row.length()];
+    			for (int i = 0; i < row.length(); i++) {
+    				rowarr[i] = row.charAt(i);
+    				if ((int)rowarr[i] < 65 || (int)rowarr[i] > 69) {
+    	    			System.out.println("\nPlease enter the row (A-E).");
+    	    			check = 0;
+    	    		}
+    			}
+    			
+    			if (check == 1) {
+    			    break;
+    			}
+
+    		}
+    		
+		}
 		
+		while (true) {
+    		System.out.print("\nEnter the seat (1-59): ");
+    		String column = input.nextLine();
+    		
+    		int check = 1;
+    		column = column.trim();
+    		if (column.length() == 0) {
+    			System.out.println("\nPlease enter the column (1-59).");
+    		}
+    		else {
+    			char[] columnarr = new char[column.length()];
+    			for (int i = 0; i < column.length(); i++) {
+    				columnarr[i] = column.charAt(i);
+    				if ((int)columnarr[i] < 48 || (int)columnarr[i] > 57) {
+    	    			System.out.println("\nPlease enter the column (1-59).");
+    	    			check = 0;
+    	    		}
+    			}
+    			
+    			if (check == 1) {
+    			    columnnum = Integer.parseInt(column);  
+    			    if ((columnnum >= 1) && (columnnum <= 59)) {
+    			        break;
+    			    } else {
+    			        System.out.println("Please enter an integer between 1 and 59.");
+    			    }
+    			}
+
+    		}
+	    		
+	    }
+
+	}
+	
+	public void BuyMore() {
+		while(true) {
+			System.out.print("\nWould you like to order more tickets? Y/N: ");
+			String yesno = input.nextLine();
+			
+			yesno = yesno.toUpperCase();
+			if (yesno.equals("YES") || yesno.equals("Y"))
+			{
+				Theatre.PrintSeats();
+				AskInfo ordermore = new AskInfo();
+			}
+			else if (yesno.equals("NO") || yesno.equals("N")){
+				System.out.println("Bye Bye! Thank you for your purchase and enjoy the show!");
+			}
+			else
+			{ 
+				System.out.println("Please input yes or no.");
+			}
+			}
 	}
 
 }
+
+
+package javaPack;
+
+public class Theatre {
+	public static String[][] seats = new String[5][59];
+
+	public Theatre() {
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 59; j++) {
+				seats[i][j] = "EMPTY";
+			}
+		}
+		
+		//first 100 reserved
+		int reserved = 0;
+		for (int i = 0; i < 5 && reserved < 100; i++) {
+			for (int j = 0; j < 59 && reserved < 100; j++) {
+				seats[i][j] = "ANONYMOUS";
+				reserved++;
+			}
+		}
+		
+		PrintSeats();
+	}
+	
+	public static void PrintSeats() {
+
+	    System.out.println("\nSeating Chart: \n"
+	    		+ "*reserved seating indicated by a circle (o)* ");
+
+	    // column headers every 5 seats
+	    System.out.print("   ");
+
+	    for (int j = 1; j <= 59; j++) {
+
+	        if (j % 5 == 0) {
+	            System.out.print(j + " ");
+	        } 
+	        else {
+	            System.out.print("   ");
+	        }
+
+	    }
+
+	    System.out.println();
+	    
+	    for(int i = 0; i < 5; i++) {
+		    	char[] rows = {'A','B','C','D','E'};
+		    	System.out.print(rows[i] + " ");
+
+	        for(int j = 0; j < 59; j++) {
+	        		if (seats[i][j].equals("EMPTY")) {
+	        			System.out.print(" o ");
+	        		}
+	        		else {
+	        			System.out.print(" - ");
+	        		}
+	            
+	        }
+
+	        System.out.println();
+	    }
+	}
+
+}
+
+
