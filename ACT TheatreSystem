@@ -37,26 +37,10 @@ public class AskInfo {
     		
     		int check = 1;
     		name = name.trim().toUpperCase();
-    		if (name.length() == 0) {
-    			System.out.println("\nPlease enter a name.\n");
-    		}
-    		else {
-    			char[] namearr = new char[name.length()];
-    			for (int i = 0; i < name.length(); i++) {
-    				namearr[i] = name.charAt(i);
-    				if ((int)namearr[i] < 65 || (int)namearr[i] > 89) {
-    	    			System.out.println("\nPlease enter a name.");
-    	    			check = 0;
-    	    		}
-    			}
-    			
-    			if (check == 1) {
-    			    break;
-    			}
-
-    		}
-    		
-		}
+            if (CheckName(name)) {
+              break;
+            }
+    	}
 		HowManySeats();
 	}
 	
@@ -156,7 +140,7 @@ public class AskInfo {
 			    }
     		}
     		else {
-    			System.out.print("1-59");
+    			System.out.print(" between 1 and 59.");
     		}
     		
 	    		
@@ -195,7 +179,7 @@ public class AskInfo {
 			for (int i = 0; i < num.length(); i++) {
 				numarr[i] = num.charAt(i);
 				if ((int)numarr[i] < 48 || (int)numarr[i] > 57) {
-	    			System.out.print("Please input an integer ");
+	    			System.out.print("Please input an integer");
 	    			return false;
 	    		}
 			}
@@ -203,6 +187,24 @@ public class AskInfo {
 		return true;
 	}
 
+    public boolean CheckName(String word) {
+    
+    		if (word.length() == 0) {
+    			System.out.println("\nPlease enter only letters.\n");
+    		}
+    		else {
+    			char[] namearr = new char[name.length()];
+    			for (int i = 0; i < name.length(); i++) {
+    				namearr[i] = name.charAt(i);
+    				if ((int)namearr[i] < 65 || (int)namearr[i] > 89) {
+    	    			System.out.println("\nPlease enter only letters.");
+    	    			return false;
+    	    		}
+    			}
+    		}
+    		return true;
+		}
+    }
 }
 
 
