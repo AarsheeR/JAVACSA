@@ -17,6 +17,7 @@ public class MainProgram {
 
 
 
+
 package javaPack;
 
 import java.util.Scanner;
@@ -31,7 +32,7 @@ public class AskInfo {
 	public AskInfo() {
 		System.out.println("-----------------");
 		while(true) {
-			System.out.print("Please enter your name: ");
+			System.out.print("Enter your name: ");
 			name = input.nextLine();
     		
     		int check = 1;
@@ -66,32 +67,29 @@ public class AskInfo {
     		System.out.print("\nHow many of seats would you like to reserve?");
     		String quantity = input.nextLine();
     		
-    		int check = 1;
     		quantity = quantity.trim();
-    		if (quantity.length() == 0) {
-    			System.out.println("Please enter an integer greater than zero.");
+    		if (CheckNum(quantity)) {
+    			int reserves = 0;
+    			for(int i = 0; i < 5; i++) {
+	    			for(int j = 0; j < 59; j++) {
+		        		if (Theatre.seats[i][j].equals("EMPTY")) {
+		        			reserves++;
+		        		}
+	    			}
+    			}
+    		
+			    quantitynum = Integer.parseInt(quantity);  
+			    if ((quantitynum >= 1) && (quantitynum <= reserves)) {
+			        break;
+			    } else {
+			        System.out.println("Please enter an integer between 1 and " + reserves + ".");
+			    }
+    			
     		}
     		else {
-    			char[] quantarr = new char[quantity.length()];
-    			for (int i = 0; i < quantity.length(); i++) {
-    				quantarr[i] = quantity.charAt(i);
-    				if ((int)quantarr[i] < 48 || (int)quantarr[i] > 57) {
-    	    			System.out.println("Please input an integer.");
-    	    			check = 0;
-    	    		}
-    			}
-    			
-    			if (check == 1) {
-    			    quantitynum = Integer.parseInt(quantity);  
-    			    if (quantitynum >= 1) {
-    			        break;
-    			    } else {
-    			        System.out.println("Please enter an integer greater than zero.");
-    			    }
-    			}
-
+    			System.out.print(".");
     		}
-	    		
+    		
 	    }
 		for (int i = 0; i < quantitynum; i++) {
 
@@ -149,29 +147,18 @@ public class AskInfo {
     		
     		int check = 1;
     		column = column.trim();
-    		if (column.length() == 0) {
-    			System.out.println("\nPlease enter the column (1-59).");
+    		if (CheckNum(column)) {
+    			columnnum = Integer.parseInt(column);  
+			    if ((columnnum >= 1) && (columnnum <= 59)) {
+			        break;
+			    } else {
+			        System.out.println("Please enter an integer between 1 and 59.");
+			    }
     		}
     		else {
-    			char[] columnarr = new char[column.length()];
-    			for (int i = 0; i < column.length(); i++) {
-    				columnarr[i] = column.charAt(i);
-    				if ((int)columnarr[i] < 48 || (int)columnarr[i] > 57) {
-    	    			System.out.println("\nPlease enter the column (1-59).");
-    	    			check = 0;
-    	    		}
-    			}
-    			
-    			if (check == 1) {
-    			    columnnum = Integer.parseInt(column);  
-    			    if ((columnnum >= 1) && (columnnum <= 59)) {
-    			        break;
-    			    } else {
-    			        System.out.println("Please enter an integer between 1 and 59.");
-    			    }
-    			}
-
+    			System.out.print("1-59");
     		}
+    		
 	    		
 	    }
 
@@ -197,8 +184,27 @@ public class AskInfo {
 			}
 			}
 	}
+	
+	public boolean CheckNum(String num) {
+		if (num.length() == 0) {
+			System.out.println("Please enter an integer greater than zero.");
+			return false;
+		}
+		else {
+			char[] numarr = new char[num.length()];
+			for (int i = 0; i < num.length(); i++) {
+				numarr[i] = num.charAt(i);
+				if ((int)numarr[i] < 48 || (int)numarr[i] > 57) {
+	    			System.out.print("Please input an integer ");
+	    			return false;
+	    		}
+			}
+		}
+		return true;
+	}
 
 }
+
 
 
 package javaPack;
@@ -265,5 +271,3 @@ public class Theatre {
 	}
 
 }
-
-
