@@ -18,6 +18,7 @@ public class MainProgram {
 
 
 
+
 package javaPack;
 
 import java.util.Scanner;
@@ -48,20 +49,20 @@ public class AskInfo {
 		int quantitynum = 0;
 		System.out.println("-----------------");
 		while (true) {
-    		System.out.print("\nHow many of seats would you like to reserve?");
+			int reserves = 0;
+			for(int i = 0; i < 5; i++) {
+    			for(int j = 0; j < 59; j++) {
+	        		if (Theatre.seats[i][j].equals("EMPTY")) {
+	        			reserves++;
+	        		}
+    			}
+			}
+    		System.out.print("\nHow many of seats would you like to reserve? " + reserves + " seats available: ");
     		String quantity = input.nextLine();
     		
     		quantity = quantity.trim();
     		if (CheckNum(quantity)) {
-    			int reserves = 0;
-    			for(int i = 0; i < 5; i++) {
-	    			for(int j = 0; j < 59; j++) {
-		        		if (Theatre.seats[i][j].equals("EMPTY")) {
-		        			reserves++;
-		        		}
-	    			}
-    			}
-    		
+    			
 			    quantitynum = Integer.parseInt(quantity);  
 			    if ((quantitynum >= 1) && (quantitynum <= reserves)) {
 			        break;
@@ -71,7 +72,7 @@ public class AskInfo {
     			
     		}
     		else {
-    			System.out.print(".");
+    			System.out.println(".");
     		}
     		
 	    }
@@ -140,7 +141,7 @@ public class AskInfo {
 			    }
     		}
     		else {
-    			System.out.print(" between 1 and 59.");
+    			System.out.println(" between 1 and 59.");
     		}
     		
 	    		
@@ -171,7 +172,7 @@ public class AskInfo {
 	
 	public boolean CheckNum(String num) {
 		if (num.length() == 0) {
-			System.out.println("Please enter an integer greater than zero.");
+			System.out.print("Please enter an integer");
 			return false;
 		}
 		else {
@@ -205,7 +206,7 @@ public class AskInfo {
     		return true;
 		}
     }
-}
+
 
 
 
@@ -236,7 +237,8 @@ public class Theatre {
 	public static void PrintSeats() {
 
 	    System.out.println("\nSeating Chart: \n"
-	    		+ "*reserved seating indicated by a circle (o)* ");
+	    		+ "*reserved seating indicated by a dash (-)"
+	    		+ "\n*available seating indicated by a circle (o) ");
 
 	    // column headers every 5 seats
 	    System.out.print("   ");
