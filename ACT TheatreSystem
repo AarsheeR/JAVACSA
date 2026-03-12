@@ -85,7 +85,7 @@ public class AskInfo {
 
 		    if(Theatre.seats[rowIndex][colIndex].equals("EMPTY")) {
 		        Theatre.seats[rowIndex][colIndex] = name;
-		        System.out.println("Seat reserved successfully!");
+		        System.out.println("\nSeat reserved successfully!");
 		    }
 		    else {
 		        System.out.println("Seat already taken. Please choose another.");
@@ -106,14 +106,14 @@ public class AskInfo {
     		int check = 1;
     		row = row.trim().toUpperCase();
     		if ((row.length() == 0) || (row.length() > 1)) {
-    			System.out.println("\nPlease enter the row (A-E).");
+    			System.out.println("Please enter the row (A-E).");
     		}
     		else {
     			char[] rowarr = new char[row.length()];
     			for (int i = 0; i < row.length(); i++) {
     				rowarr[i] = row.charAt(i);
     				if ((int)rowarr[i] < 65 || (int)rowarr[i] > 69) {
-    	    			System.out.println("\nPlease enter the row (A-E).");
+    	    			System.out.println("Please enter the row (A-E).");
     	    			check = 0;
     	    		}
     			}
@@ -207,6 +207,7 @@ public class AskInfo {
     		return true;
 		}
     }
+
 
 
 
