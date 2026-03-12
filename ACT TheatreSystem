@@ -192,13 +192,14 @@ public class AskInfo {
     
     		if (word.length() == 0) {
     			System.out.println("\nPlease enter only letters.\n");
+    			return false;
     		}
     		else {
     			char[] namearr = new char[name.length()];
     			for (int i = 0; i < name.length(); i++) {
     				namearr[i] = name.charAt(i);
     				if ((int)namearr[i] < 65 || (int)namearr[i] > 89) {
-    	    			System.out.println("\nPlease enter only letters.");
+    	    			System.out.println("\nPlease enter only letters.\n");
     	    			return false;
     	    		}
     			}
@@ -206,6 +207,7 @@ public class AskInfo {
     		return true;
 		}
     }
+
 
 
 
