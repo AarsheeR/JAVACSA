@@ -1,0 +1,82 @@
+package javaPack;
+
+public class MainProgram {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		DigitSummarizer digit = new DigitSummarizer();
+		System.out.println(digit.digitSum(10));
+		System.out.println(digit.digitSum(9));
+		System.out.println(digit.digitSum(321));
+		
+		System.out.println(digit.digitalRoot(78));
+		System.out.println(digit.digitalRoot(351));
+		System.out.println(digit.digitalRoot(98875));
+		
+		System.out.println(digit.containsRoot(736));
+		System.out.println(digit.containsRoot(84343));
+		System.out.println(digit.containsRoot(212));
+	}
+
+}
+
+
+package javaPack;
+
+public class DigitSummarizer {
+	/** Returns the single-digit "digital root" of n
+	* Precondition: n is a positive number
+	*/
+	public int digitalRoot(int n)
+	{
+		if (n < 10 ) {
+			return n;
+		}
+		else {
+			while (n >= 10) {
+				n = digitSum(n);
+			}
+			return n;
+		}
+
+	}
+	/** Returns true if one of the digits of n is equal
+	* to the digital root of n.
+	* Precondition: n is a positive number
+	*/
+	public boolean containsRoot(int n)
+	{
+		int digiroot = digitalRoot(n);
+		
+		while (n>0) {
+			if ((n%10) == digiroot) {
+				return true;
+			}
+			else {
+				n = n/10;
+			}
+		}
+		return false;
+
+	}
+	/** Returns the sum of the digits in n
+	* Precondition: n is a positive number
+	*/
+	public int digitSum(int n)
+	{
+		int sum = 0;
+		
+		if (n < 10 ) {
+			return n;
+		}
+		else {
+			while (n>0) {
+				int digitsum = (n%10);
+				sum = sum + digitsum;
+				n = n/10;
+				
+			}
+			return sum;
+		}
+	}
+}
