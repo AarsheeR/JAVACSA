@@ -1,0 +1,83 @@
+package javaPack;
+
+public class MainProgram {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+
+
+package javaPack;
+
+import java.util.ArrayList;
+
+public class School {
+	private ArrayList<Classroom> classrooms;
+	
+	public School(ArrayList<Classroom> lists) {
+		classrooms = lists;
+	}
+	
+	public String findStudent(String teachName, int stuID) {
+		for (int i = 0; i<classrooms.size();i++) {
+			if  (classrooms.get(i).getTeacher().equals(teachName)) {
+				for (int j = 0; j<classrooms.get(i).getStudentList().size(); j++) {
+					if 
+				}
+			}
+			
+		}
+	}
+}
+
+
+
+
+
+package javaPack;
+
+public class Student {
+	private String studentName;
+	private int studentID;
+	
+	public Student(String name, int id) {
+		studentName = name;
+		studentID = id;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+package javaPack;
+
+import java.util.ArrayList;
+
+public class Classroom {
+	private String teacherName;
+	private ArrayList<Student> students;
+	
+	public Classroom(String teacher, ArrayList<Student> list) {
+		teacherName = teacher;
+		students = list;
+	}
+	
+	public ArrayList<Student> getStudentList() {
+		return students;
+	}
+	
+	public String getTeacher() {
+		return teacherName;
+	}
+}
+
